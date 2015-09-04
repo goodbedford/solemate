@@ -1,4 +1,4 @@
-var app = angular.module('questionApp', ['ngRoute', 'ngResource']);
+var app = angular.module('questionApp', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
 
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider){
@@ -47,6 +47,10 @@ app.service('Answer', ['$resource', function($resource) {
 
 app.service("Aws", ['$resource', function($resource) {
   return $resource('/api/shoes/:id', {id: '@_id'});
+}]);
+
+app.controller('MainController', ['$scope', function($scope){
+
 }]);
 
   app.controller('HomeCtrl',['$scope', 'QnA', 'Aws', function($scope, QnA, Aws){
