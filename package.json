@@ -1,0 +1,20 @@
+{
+  "name": "QnA",
+  "version": "1.0.0",
+  "description": "ga project practice mean stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "goodbedford",
+  "license": "ISC",
+  "dependencies": {
+    "apac": "^1.0.0",
+    "body-parser": "^1.13.3",
+    "dotenv": "^1.2.0",
+    "express": "^4.13.3",
+    "mongoose": "^4.1.4",
+    "request": "^2.61.0"
+  }
+}
