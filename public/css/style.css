@@ -1,7 +1,61 @@
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer;
+}
 
+.badge-bg01 {
+  background-color: #FF0080;
+}
 
-.top-margin{
+.bdr-dotted{
+  border-bottom: 1px dotted ;
+}
+.btm-margin01 {
+  margin-bottom: 1em;
+}
+
+.circle-bg{
+/*  background-color: yellow;
+*/  border: 2px solid #FF0080;
+  border-radius: 15%;
+  /*height: 12.5em;*/
+  padding: 1em;
+}
+.default-profile {
+  color: #FF0080;
+  font-size: 3em;
+}
+
+.dev-line {
+  border: 1px solid red;
+  /*border-top: 1px solid red;*/
+}
+
+.hr-bar01 {
+  border-bottom: 20px solid #FF0080;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-bottom: 1em;
+}
+.hr-bar02 {
+  padding: 1em;
+  border-bottom: 2px solid #FF0080;
+  margin-bottom: 1em;
+}
+.pad-1em{
+  padding: 1em;
+}
+.thumb{
+  height: 5em;
+  width: 5em;
+}
+.thumb-bg {
+  background-color: #CCCCCC;
+}
+
+.top-margin {
   margin-top: 75px;
   padding: 5px;
 }

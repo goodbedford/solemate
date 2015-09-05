@@ -1,0 +1,18 @@
+<div class="" ng-controller="MiddlePanelController">
+  <div class="pad-1em">
+    <span class=""># shoe matches found</span> | <a href="#" ng-click="changePerPage()">View<span>{{perPage}}</span> per page </a>
+  </div>
+  <div ng-repeat="shoe in mdlPanel.shoes" class="col-sm-4">
+    <div class="thumbnail">
+    <div>0</div>
+
+    <img ng-src="{{shoe.shoeUrl}}" class="thumb">
+    <div class="caption">
+
+    <h5 class=""><span class="bdr-dotted">{{shoe.name}}</span></h5>
+    <p>{{shoe.price | currency}}</p>
+    
+    </div>
+    </div>
+  </div>
+</div>

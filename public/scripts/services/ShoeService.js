@@ -61,6 +61,18 @@ app.factory('ShoeService', [function() {
   factory.getShoes = function() {
     return shoes;
   }
-
+  factory.getShoeById = function(id) {
+    var foundShoe = null;
+    shoes.forEach( function(shoe){
+      if (shoe.id == id) {
+        foundShoe = shoe;
+      }
+    });
+    return foundShoe;
+  }
+  
   return factory;
 }]);
+
+
+

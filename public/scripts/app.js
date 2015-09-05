@@ -4,7 +4,7 @@ var app = angular.module('solemateApp', ['ngRoute', 'ngResource', 'ui.bootstrap'
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'views/templates/shoeBanner.html',
+      templateUrl: 'views/templates/home.html',
       controller: 'HomeController'
     })
     .when('/:id', {

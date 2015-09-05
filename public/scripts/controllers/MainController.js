@@ -3,4 +3,7 @@ app.controller('MainController', ['$scope', function($scope){
   $scope.showMiniSplash = function(){
     $scope.miniSplash = true;
   }
+
+  $scope.main = {}
+  $scope.main.test = "testing";
 }]);
