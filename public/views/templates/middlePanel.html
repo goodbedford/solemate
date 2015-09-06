@@ -1,15 +1,16 @@
 <div class="" ng-controller="MiddlePanelController">
   <div class="pad-1em">
-    <span class=""># shoe matches found</span> | <a href="#" ng-click="changePerPage()">View<span>{{perPage}}</span> per page </a>
+    <span class="">{{mdlPanel.numShoeMatchesAll(mdlPanel.currentUser, mdlPanel.shoes) }} shoe matches found</span> | <a href="#" ng-click="">View<span>{{perPage}}</span> per page </a>
   </div>
-  <div ng-repeat="shoe in mdlPanel.shoes" class="col-sm-4">
+  <div ng-repeat="shoe in mdlPanel.shoes" ng-click="mdlPanel.addToWishList(mdlPanel.currentUser, shoe.id)" class="col-xs-6 col-sm-4">
     <div class="thumbnail">
-    <div>0</div>
-
+    <div class="text-right pad-1em hr-bar02">
+    <!-- <div ng-click="$scope.main.test = mdlPanel.numShoeMatches2(mdlPanel.currentUser, shoe); getArr2()">click</div> -->
+    <a ng-href="javascript:void(0)" ng-click="main.matesShoePanel = mdlPanel.numShoeMatches2(mdlPanel.currentUser, shoe);$event.stopPropagation()" >{{(mdlPanel.numShoeMatches(mdlPanel.currentUser, shoe.id) ).length}} Mates</div></a>
     <img ng-src="{{shoe.shoeUrl}}" class="thumb">
-    <div class="caption">
+    <div class="caption text-center">
 
-    <h5 class=""><span class="bdr-dotted">{{shoe.name}}</span></h5>
+    <h5><span class="bdr-dotted">{{shoe.name}}</span></h5>
     <p>{{shoe.price | currency}}</p>
     
     </div>

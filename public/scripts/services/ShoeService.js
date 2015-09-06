@@ -70,6 +70,7 @@ app.factory('ShoeService', [function() {
     });
     return foundShoe;
   }
+
   
   return factory;
 }]);

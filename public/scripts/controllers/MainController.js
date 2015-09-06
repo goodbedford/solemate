@@ -6,4 +6,8 @@ app.controller('MainController', ['$scope', function($scope){
 
   $scope.main = {}
   $scope.main.test = "testing";
+  $scope.main.matesShoePanel = {};
+  // $scope.main.matesShoePanel;
+  $scope.main.showMatesShowPanel = false;
+
 }]);

@@ -4,7 +4,7 @@
   <!-- main container -->
   <div class="row">
     <!-- left panel -->
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div ng-include="'views/templates/leftPanel.html'"></div>
     </div>
     <!-- middle panel -->
@@ -12,8 +12,22 @@
       <div class="" ng-include="'views/templates/middlePanel.html'"></div>
     </div>
     <!-- right panel -->
-    <div class="col-sm-1">
-      <div clas="">right panel</div>
+    <div class="col-sm-2">
+      <div class="row profile-box">
+        <img ng-src="{{main.matesShoePanel.shoe}}" class="rt-panel-img">
+      </div>
+      <div class="row">
+        <div class="hr-bar02">
+          <h3 class="">
+            <span class="badge badge-bg01">{{lftPanel.mates.length}}</span>
+            Sole Mates</h3>
+        </div>
+        <div clas="" ng-repeat="mate in main.matesShoePanel.mates">
+          <div>
+            <h4>{{mate.username}}</h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <!-- end container -->
