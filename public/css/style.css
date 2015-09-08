@@ -4,20 +4,33 @@
 .panel-title a {
   cursor: pointer;
 }
-
+.ng-cloak{display: none;}
 
 
 a {
-  color: green;
+  color: gray;
+  border: 2px solid white;
+  text-decoration: none;
 }
-
+a, a:hover, a:active, a:visted{
+}
+a:focus{
+  color: gray;
+  text-decoration: none;
+}
 a:hover {
-  color: green;
+  color: #FF0080;
   border:2px solid #FF0080;
+  text-decoration: none;
+
+}
+a:active{
+  color: #FF0080;
+  background-color: #CCCCCC;
 }
 
 a:visted {
-  color: green;
+  color: #FF0080;
 }
 .badge-bg01 {
   background-color: #FF0080;
@@ -29,11 +42,16 @@ a:visted {
 .bolder{
   color:#FF0080;
 }
+.brand{
+  color: #FF0080;
+}
 
 .btm-margin01 {
   margin-bottom: 1em;
 }
-
+.btn-primary{
+  width:100%;
+}
 
 .circle-bg {
   background-color: yellow;
@@ -72,25 +90,43 @@ a:visted {
   border-bottom: 2px solid #FF0080;
   margin-bottom: 1em;
 }
+.login-modal{
+  position: absolute;
+  background-color:white;
+  margin: 25% 25%;
+  width: 50%;
+
+}
+.login-modal-bg{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 5;
+  width: 100%;
+  height: 1000px;
+  background-color: rgba(0,0,0,0.5);
+}
 
 .navbar {
   /*background-color: #FF0080;*/
   background-color: white;
   color: green;
+  z-index: 2;
 }
 
 .navbar-nav {}
 
 .navbar-default .navbar-nav>li>a {
-  color: green;
+  /*color: gray;*/
 }
 
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:focus,
 .navbar-default .navbar-nav>.active>a:hover {
-  color: green;
-  background-color: white;
+  color: #FF0080;
+  background-color: #E6E6E6;
   border: 2px solid #FF0080;
+  text-decoration: none;
 }
 .quote{
   color: gray;
