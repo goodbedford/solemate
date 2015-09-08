@@ -1,6 +1,6 @@
-app.controller('MainController', ['$scope','$modal', '$log', function($scope, $modal, $log ){
-   $scope.isCollapsed = true;
-  $scope.showMiniSplash = function(){
+app.controller('MainController', ['$scope', '$modal', '$log', function($scope, $modal, $log) {
+  $scope.isCollapsed = true;
+  $scope.showMiniSplash = function() {
     $scope.miniSplash = true;
   }
 
@@ -10,13 +10,54 @@ app.controller('MainController', ['$scope','$modal', '$log', function($scope, $m
   $scope.main.showMatesShowPanel = false;
   $scope.showLoginModal = true;
   $scope.showLoginForm = false;
+  $scope.showSignUpForm = false;
   $scope.showGuestLoginForm = true;
 
-  $scope.open = function(){
+  $scope.open = function() {
     $scope.showLoginModal = true;
+    $scope.showLoginForm = true;
+    $scope.showSignUpForm = false;
+    $scope.showGuestLoginForm = false;
   }
+  $scope.cancel = function() {
+    $scope.guest = {};
+
+    if ($scope.showGuestLoginForm == true) {
+      $scope.showGuestLoginForm = false;
+      $scope.showSignUpForm = false;
+      $scope.showLoginModal = false;
+
+    } else if ($scope.showLoginForm == true) {
+      $scope.showLoginForm = false;
+      $scope.showGuestLoginForm = false;
+      $scope.showSignUpForm = false;
+      $scope.showLoginModal = false;
+
+    } else {
+      $scope.showSignUpForm = false;
+      $scope.showGuestLoginForm = false;
+      $scope.showLoginForm = false;
+
+      $scope.showLoginModal = false;
+
+    }
+  }
+
+
+  //submit as guest
+  $scope.main.submitGuest = function() {
+    $scope.guest = {};
+
+    $scope.guest.shoeType; //male or female
+    $scope.guest.leftFootSize;
+    $scope.guest.rightFootSize;
+    console.log($scope.guest.shoeType)
+
+    console.log($scope.guest.leftFootSize)
+  }
+
   // $scope.main.matesShoePanel;
- 
+
 
   // $scope.main.showMatesShowPanel = false;
   // $scope.animationsEnabled = true;
