@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', '$modal', '$rootScope', '$resource', function($scope, $modal, $rootScope, $resource ) {
+app.controller('MainController', ['$scope', '$modal', '$rootScope', function($scope, $modal, $rootScope ) {
   $scope.isCollapsed = true;
   $scope.showMiniSplash = function() {
     $scope.miniSplash = true;
@@ -66,7 +66,7 @@ app.controller('MainController', ['$scope', '$modal', '$rootScope', '$resource',
 
 
     console.log($scope.guest.shoeType);
-    $rootScope.currentUser = $scope.guest;
+    //$rootScope.currentUser = $scope.guest;
     console.log($scope.currentUser);
 
   }
