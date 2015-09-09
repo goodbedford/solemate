@@ -14,6 +14,9 @@ app.controller('MiddlePanelController', ['$scope', 'UserService', 'ShoeService',
   $scope.mdlPanel.addToWishList = UserService.addToWishList;
   $scope.mdlPanel.test = UserService.test;
 
+  //right panel
+  $scope.showMsg = false;
+
   $scope.mdlPanel.getMatesShoePanel = function( matesArr){
     console.log(matesArr)
     $scope.main.matesShoePanel.mates = matesArr;
@@ -25,5 +28,7 @@ app.controller('MiddlePanelController', ['$scope', 'UserService', 'ShoeService',
   $scope.getArr2 = function(someArr){
     console.log("some arery2",someArr)
   }
+
+
 
 }]);

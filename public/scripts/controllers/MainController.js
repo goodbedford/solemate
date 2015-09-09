@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', '$modal', '$log', function($scope, $modal, $log) {
+app.controller('MainController', ['$scope', '$modal', '$rootScope', '$resource', function($scope, $modal, $rootScope, $resource ) {
   $scope.isCollapsed = true;
   $scope.showMiniSplash = function() {
     $scope.miniSplash = true;
@@ -8,6 +8,7 @@ app.controller('MainController', ['$scope', '$modal', '$log', function($scope, $
   $scope.main.test = "testing";
   $scope.main.matesShoePanel = {};
   $scope.main.showMatesShowPanel = false;
+  //modal
   $scope.showLoginModal = true;
   $scope.showLoginForm = false;
   $scope.showSignUpForm = false;
@@ -42,19 +43,42 @@ app.controller('MainController', ['$scope', '$modal', '$log', function($scope, $
 
     }
   }
+  //guest
+  $scope.guest = {};
+  $scope.guest = {shoeType: "w"};
+
+  //root scope
+  $rootScope.currentUser = {};
+  
 
 
-  //submit as guest
+
+
+
+  //submit $scope.guest
   $scope.main.submitGuest = function() {
-    $scope.guest = {};
 
-    $scope.guest.shoeType; //male or female
+    $scope.guest.shoeType; //mens womens
     $scope.guest.leftFootSize;
     $scope.guest.rightFootSize;
-    console.log($scope.guest.shoeType)
+    $scope.guest.username = "guest";
 
-    console.log($scope.guest.leftFootSize)
+
+
+    console.log($scope.guest.shoeType);
+    $rootScope.currentUser = $scope.guest;
+    console.log($scope.currentUser);
+
   }
+
+  //signup scope
+  $scope.signup = {};
+  $scope.signup = {shoeType: "w" };
+
+  $scope.submitSignUpForm = function(){
+
+  }
+
 
   // $scope.main.matesShoePanel;
 

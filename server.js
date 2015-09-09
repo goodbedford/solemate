@@ -1,43 +1,22 @@
 //require express and other modules
 var express = require('express'),
   app = express(),
-  bodyParser = require('body-parser'),
+  bodyParser = require('body-parser'), 
   mongoose = require('mongoose'),
   request = require('request'),
+  session = require('express-session'),
   dotenv = require('dotenv');
 //require models
-var Question = require('./models/question');
-var Answer = require('./models/answer');
+// var Question = require('./models/question');
+// var Answer = require('./models/answer');
+var Message = require("./models/message.js"),
+    Shoe = require("./models/shoe.js"),
+    User = require("./models/user.js");
 
 // load dotenv
 dotenv.load();
 
-//AWS APAC 
-var util = require('util'),
-    OperationHelper = require('apac').OperationHelper;
 
-var opHelper = new OperationHelper({
-    awsId:     process.env.ACCESS_KEY_ID,
-    awsSecret: process.env.SECRET_ACCESS_KEY,
-    assocId:   process.env.ASSOCIATE_TAG,
-    // xml2jsOptions: an extra, optional, parameter for if you want to pass additional options for the xml2js module. (see https://github.com/Leonidas-from-XIV/node-xml2js#options)
-    version:   '2013-08-01'
-    // your version of using product advertising api, default: 2013-08-01
-});
-
-
-// execute(operation, params, callback)
-// operation: select from http://docs.aws.amazon.com/AWSECommerceService/latest/DG/SummaryofA2SOperations.html
-// params: parameters for operation (optional)
-// callback(err, parsed, raw): callback function handling results. err = potential errors raised from xml2js.parseString() or http.request(). parsed = xml2js parsed response. raw = raw xml response.
-
-// opHelper.execute('ItemSearch', {
-//   'SearchIndex': 'Shoes',
-//   'Keywords': 'shoes',
-//   'ResponseGroup': 'ItemAttributes,Offers'
-// }, function(err, results) { // you can add a third parameter for the raw xml response, "results" here are currently parsed using xml2js
-//     console.log(results);
-// });
 
 //connect to mongodb
 mongoose.connect(
@@ -58,155 +37,159 @@ app.use(function(err, req, res, next) {
   res.status(500).send('Something broke!');
 });
 
+//middleware
+//session
+// app.use(session({
+//   saveUninitialized: true,
+//   resave: true,
+//   secret: process.env.SESSION_SECRET,
+//   cookie: { maxAge: 600000 }
+  
+// })); 
+
 //routes
 
 //Get Shoes
 app.get('/api/shoes', function(req, res){
- //  //console.log(opHelper)
- // request.get("http://webservices.amazon.com/onca/xml?AWSAccessKeyId=AKIAIGDDFE3CAEAE4CCQ&AssociateTag=solemate-20&Condition=New&Keywords=shoes&Operation=ItemSearch&ResponseGroup=Images&SearchIndex=Shoes&Service=AWSECommerceService&Timestamp=2015-09-03T19%3A24%3A59.000Z&Version=2011-08-01&Signature=7x2%2Fbm0qEQC96VZDvGQNVrWBSbTAAU4NYuFBU0WqTf8%3D", function(err, respond, body){
- //  //console.log(body)
- //  //data = XML.parse(body)
- //  res.body
- // });
-
- opHelper.execute('ItemSearch', {
-   'SearchIndex': 'Shoes',
-   'Keywords': 'shoes',
-   'ResponseGroup': 'Images,'
- }, function(err, results) { // you can add a third parameter for the raw xml response, "results" here are currently parsed using xml2js
-     //console.log(results.ItemSearchResponse.Items);
-     //console.log(util.inspect(results, false, null));
-     // console.log( results.ItemSearchResponse.OperationRequest[0])
-     //console.log( results.ItemSearchResponse.Items[0].Item[0].ItemAttributes[0].Title)
-     
-     //console.log(results.ItemSearchResponse.Items[0])
-     //Get Image
-     var images = results.ItemSearchResponse.Items[0].Item;
-     var imgUrl = [];
-     images.forEach( function (img) {
-      //console.log(img.MediumImage[0].URL)
-      imgUrl.push(img.MediumImage[0].URL['0'])
-     })
-     res.send(imgUrl)
-     //Get title
-     // var items = results.ItemSearchResponse.Items[0].Item;
-     // var titles = [];
-     //  console.log(items.forEach(function(item){
-     //   titles.push(item.ItemAttributes[0].Title);
-     //  }));
-     //  console.log(titles)
-     // res.send(titles)
-     //res.send( results.ItemSearchResponse.Items[0].Item[0].ItemAttributes[0].Title)
-
- });
-
-});
-
-//GET questions
-app.get('/api/questions', function(req, res) {
-  Question.find({}, function(err, questions) {
-    res.json(questions);
+  Shoe.find({}, function(err, shoes){
+    res.json(shoes);
   });
 });
+//GET shoe by id
+app.get('/api/shoes/:id', function(req, res){
+  var shoe_id = req.params.id;
+  Shoe.findOne({_id: shoe_id}, function(err, foundShoe){
+    res.json(foundShoe);
+  });
+});
+// Post Shoe
+app.post('/api/shoes/', function(req, res){
+  var newShoe = new Shoe({
+    name: req.body.name,
+    brand: req.body.brand,
+    price: req.body.price,
+    shoeUrl: req.body.shoeUrl,
+    type: req.body.type
+  });
 
-//GET questions id
-app.get('/api/questions/:id', function(req, res) {
-  var targetId = req.params.id;
-  Question.findOne({
-      _id: targetId
-    },
-    function(err, foundUser) {
-      res.json(foundUser);
+  newShoe.save(function(err, savedShoe){
+    res.json(savedShoe);
+  });
+});
+//PUT -UPDATE shoe by id
+app.put('/api/shoes/:id', function(req, res){
+  var shoe_id = req.params.id;
+  Shoe.findOne({_id: shoe_id}, function(err, foundShoe){
+    foundShoe.name = req.body.name,
+    foundShoe.brand = req.body.brand,
+    foundShoe.price = req.body.price,
+    foundShoe.shoeUrl = req.body.shoeUrl,
+    foundShoe.type = req.body.type
+
+    foundShoe.save(function(err, savedShoe){
+      res.json(savedShoe);
     });
+  }); 
 });
 
-
-//POST question
-app.post('/api/questions', function(req, res) {
-  var newQuestion = new Question({
-    text: req.body.text
-  });
-
-  newQuestion.save(function(err, savedQuestion) {
-    res.json(savedQuestion);
-    console.log("error msg:", err.errors.text.message)
-    // err.forEach(function(msg){
-    //   console.log(msg )
-    // });
+//Delete shoe by id
+app.delete('/api/shoes/:id', function(req, res){
+  Shoe.find({_id: req.params.id}, function(err, user){
+    console.log("shoe deleted", shoe);
+    res.send("shoe was deleted:");
   });
 });
 
-//PUT question
-app.put('/api/questions/:id', function(req, res) {
-  var targetId = req.params.id;
-
-  Question.findOne({
-    _id: targetId
-  }, function(err, foundQuestion) {
-    foundQuestion.text = req.body.text || foundQuestion.text;
-
-    foundQuestion.save(function(err, savedQuestion) {
-      res.json(savedQuestion);
-    });
+//GET users
+app.get('/api/users', function(req, res){
+  User.find({}, function(err, users){
+    res.json(users);
+  });
+});
+//GET user by id
+app.get('/api/users/:id', function(req, res){
+  var user_id = req.params.id;
+  User.findOne({_id: user_id}, function(err, foundUser){
+    res.json(foundUser);
   });
 });
 
-//DELETE question
-app.delete('/api/questions/:id', function(req, res) {
-  var targetId = req.params.id;
+//POST user
+app.post('/api/users/', function(req, res){
+  var newUser = new User({
+    username:  req.body.username, 
+    email: req.body.email,
+    password: req.body.password,
+    leftFoot: req.body.leftFoot,
+    rightFoot: req.body.rightFoot,
+    shoeType: req.body.shoeType
+  });
 
-  Question.findOneAndRemove({
-    _id: targetId
-  }, function(error, deleteQuestion) {
-    res.json("Deleted: " + deleteQuestion);
+  User.createSecure( newUser,
+    function (err, secureUser){
+      res.json(secureUser);
+    }
+  );
+});
+
+//PUT - update user by id
+app.put('/api/users/:id', function(req, res){
+  var user_id = req.params.id;
+
+  User.findOne({_id: user_id}, function(err, foundUser){
+    foundUser.username =  req.body.username, 
+    foundUser.email = req.body.email,
+    foundUser.password = req.body.password,
+    foundUser.leftFoot = req.body.leftFoot,
+    foundUser.rightFoot = req.body.rightFoot,
+    foundUser.shoeType = req.body.shoeType
   });
 });
 
-//POST answer 
-app.post('/api/questions/:question_id/answers', function(req, res) {
-  var targetId = req.params.question_id;
-  console.log(req.body);
-  var newAnswer = new Answer(req.body);
-  Question.findOne({
-    _id: targetId
-  }, function(err, foundQuestion) {
-    foundQuestion.answers.push(newAnswer);
-    foundQuestion.save(function(err, savedQuestion) {
-      res.json(savedQuestion);
-    });
-  });
-});
-//PUT answer
-app.put('/api/questions/:question_id/answers/:id', function(req, res) {
-  var targetId = req.params.question_id;
-  var answerId = req.params.id;
-    console.log("found answer",req.body)
-
-  Question.findOne({
-    _id: targetId
-  }, function(err, foundQuestion) {
-    var foundAnswer = foundQuestion.answers.id(answerId);
-    foundAnswer.content = req.body.content;
-    foundQuestion.save(function(err, savedQuestion) {
-      res.json(savedQuestion);
-    });
+//Delete user by id
+app.delete('/api/users/:id', function(req, res){
+  User.find({_id: req.params.id}, function(err, user){
+    console.log("user deleted", user);
+    res.send("user was deleted:");
   });
 });
 
-//Delete anwser
-app.delete('/api/questions/:question_id/answers/:id', function(req, res) {
-  var targetId = req.params.question_id;
-  var answerId = req.params.id;
-  Question.findOne({
-    _id: targetId
-  }, function(err, foundQuestion) {
-    var foundAnswer = foundQuestion.answers.id(answerId);
-    foundAnswer.remove();
-    foundQuestion.save(function(err, savedQuestion) {
-      res.json(foundAnswer);
-    });
+//Get Messages
+app.get('/api/messages', function(req, res){
+  Message.find({}, function(err, messages){
+    res.json(messages);
   });
 });
+//GET Messages by id
+app.get('/api/messages/:id', function(req, res){
+  var msg_id = req.params.id;
+  Shoe.findOne({_id: msg_id}, function(err, foundMsg){
+    res.json(foundMsg);
+  });
+});
+// Post Message
+app.post('/api/messages/', function(req, res){
+  var newMessages = new Message({
+    name: req.body.name,
+    brand: req.body.brand,
+    price: req.body.price,
+    shoeUrl: req.body.shoeUrl,
+    type: req.body.type
+  });
+
+  newShoe.save(function(err, savedShoe){
+    res.json(savedShoe);
+  });
+});
+
+//Delete Message by id
+app.delete('/api/messages/:id', function(req, res){
+  Message.find({_id: req.params.id}, function(err, deletedMessage){
+    console.log("message deleted", deletedMessage);
+    res.send("message was deleted:");
+  });
+});
+
 
 // set location for static files
 app.use(express.static(__dirname + '/public'));

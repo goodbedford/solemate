@@ -11,13 +11,13 @@
             <div class="col-sm-6 text-center">
               <div class="radio">
                 <label>
-                  <input type="radio" name="optradio" ng-model="guest.shoeType">Womens's Shoes</label>
+                  <input type="radio" ng-model="guest.shoeType" value="w">Womens's Shoes</label>
               </div>
             </div>
             <div class="col-sm-6 text-center">
               <div class="radio">
                 <label>
-                  <input type="radio" name="optradio" ng-model="guest.shoeType">Men's Shoes</label>
+                  <input type="radio" ng-model="guest.shoeType" value="m">Men's Shoes</label>
               </div>
             </div>
           </div>
@@ -206,36 +206,36 @@
         <h3 class="modal-title text-center row">Sign Up</h3>
       </div>
       <div class="modal-body row">
-        <form class="">
+        <form class="" ng-submit="submitSignUpForm()">
           <div class="row">
             <div class="form-group">
-              <label for="login.username">Username:</label>
-              <input type="text" id="login.username" class="form-control">
+              <label for="signup.username">Username:</label>
+              <input type="text" id="signup.username" class="form-control">
             </div>
             <div class="form-group">
-              <label for="login.email">Email:</label>
-              <input type="text" id="login.email" class="form-control">
+              <label for="signup.email">Email:</label>
+              <input type="text" id="signup.email" class="form-control">
             </div>
             <div class="form-group">
-              <label for="login.password">Password:</label>
-              <input type="text" id="login.password" class="form-control">
+              <label for="signup.password">Password:</label>
+              <input type="text" id="signup.password" class="form-control">
             </div>
             <div class="form-group">
-              <label for="login.password-confirmation">Password Confirmation:</label>
-              <input type="text" id="login.password-confirmation" class="form-control">
+              <label for="signup.password-confirmation">Password Confirmation:</label>
+              <input type="text" id="signup.password-confirmation" class="form-control">
             </div>
           </div>
           <div class="row">
             <div class="col-sm-6 text-center">
               <div class="radio">
                 <label>
-                  <input type="radio" name="optradio">Womens's Shoes</label>
+                  <input type="radio" name="optradio" value="w" ng-model="signup.shoeType">Womens's Shoes</label>
               </div>
             </div>
             <div class="col-sm-6 text-center">
               <div class="radio">
                 <label>
-                  <input type="radio" name="optradio">Men's Shoes</label>
+                  <input type="radio" name="optradio" value="m" ng-model="signup.shoeType">Men's Shoes</label>
               </div>
             </div>
           </div>
@@ -244,7 +244,7 @@
             <div class="col-sm-6 text-center">
               <div class="form-group">
                 <label for="selectRight">Right Foot:</label>
-                <select class="form-control" id="selectRight">
+                <select class="form-control" id="selectRight" ng-model="signup.rightFoot">
                   <option>4.0</option>
                   <option>4.5</option>
                   <option>5.0</option>
@@ -272,7 +272,7 @@
           <div class="col-sm-6 text-center">
             <div class="form-group">
               <label for="selectLeft">Left Foot:</label>
-              <select class="form-control" id="selectLeft">
+              <select class="form-control" id="selectLeft" ng-model="signup.leftFoot">
                 <option>4.0</option>
                 <option>4.5</option>
                 <option>5.0</option>
