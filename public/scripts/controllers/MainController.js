@@ -53,7 +53,10 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
 
   //root scope
   $rootScope.currentUser = {};
-  $rootScope.currentUser.mates = {};
+  $rootScope.currentUser.mates = [];
+  $rootScope.currentUser.likes = [];
+  $rootScope.displayMates = [];
+
 
   //submit $scope.guest
   $scope.main.submitGuest = function() {
@@ -117,21 +120,21 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
         $rootScope.currentUser = data;
 
         UserService.getUsers(function(users) {
-          users.forEach(function(user){
-            if( user.leftFoot == $rootScope.currentUser.rightFoot &&
-                user.rightFoot == $rootScope.currentUser.leftFoot){
-              //console.log("this is current user before addMates", $rootScope.currentUser.mates)
+          // users.forEach(function(user){
+          //   if( user.leftFoot == $rootScope.currentUser.rightFoot &&
+          //       user.rightFoot == $rootScope.currentUser.leftFoot){
+          //     //console.log("this is current user before addMates", $rootScope.currentUser.mates)
 
-              $rootScope.currentUser.mates.push(user._id);
-              console.log("this is current user in addMates", $rootScope.currentUser)
-              // console.log("user to:", user)
-               UserService.update({id: $rootScope.currentUser._id},$rootScope.currentUser, function(updatedUser){
-               console.log("updated user:",updatedUser);
-               });
-            }
-          });
+          //     $rootScope.currentUser.mates.push(user._id);
+          //     console.log("this is current user in addMates", $rootScope.currentUser)
+          //     // console.log("user to:", user)
+          //      UserService.update({id: $rootScope.currentUser._id},$rootScope.currentUser, function(updatedUser){
+          //      console.log("updated user:",updatedUser);
+          //      });
+          //   }
+          // });
 
-          //MatesService.addMates(users);
+          MatesService.addMates(users);
           //console.log("this is rootscope in mates service", $rootScope.currentUser);
         });
       });

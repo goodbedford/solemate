@@ -109,6 +109,12 @@ form{
   border-bottom: 2px solid #FF0080;
   margin-bottom: 1em;
 }
+
+.lp-well{
+  margin: 1em 0;
+  background-color: rgba(204, 204, 204, 0.25);
+  border:1px solid #FF0080;
+}
 .likeShoe{
   cursor: pointer;
 }

@@ -18,16 +18,18 @@
   </div>
   <div class="row">
     <div class="hr-bar02">
-      <h3 class=""><span class="badge badge-bg01">{{mates.length}}</span>
+      <h3 class=""><span class="badge badge-bg01">{{displayMates.length}}</span>
 Sole Mates</h3>
     </div>
-    <div ng-repeat="mate in currentUser.mates">
+    </div>
+    <div ng-repeat="mate in displayMates">
+    <div class="lp-well row">
       <p>{{mate.username}}</p>
       <div class="col-xs-12 btm-margin01">
         <span class="col-xs-6">Left:<br><span class="badge badge-bg01">{{mate.leftFoot}}</span></span>
         <span class="col-xs-6">Right:<br><span class="badge badge-bg01">{{mate.rightFoot}}</span></span>
       </div>
-    </div>
+      </div>
   </div>
   <!-- end leftPanel -->
 </div>

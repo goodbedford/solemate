@@ -15,7 +15,7 @@ var UserSchema = new Schema({
   leftFoot: {type: String, default: "", required: true},
   rightFoot: {type: String, default: "", required: true},
   shoeType: {type: String, default: "", required: true},
-  likes: [{type: ObjectId, ref: 'Shoe'}],
+  likes: [{type: ObjectId, unique:true, ref: 'Shoe'}],
   messages: [{type: ObjectId, ref: 'Message'}],
 
   mates: [{type: ObjectId, ref: 'User'}]

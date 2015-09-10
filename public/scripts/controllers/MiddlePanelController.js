@@ -10,14 +10,14 @@ app.controller('MiddlePanelController', ['$scope', '$rootScope', 'UserService', 
 
 
     $scope.mdlPanel.currentUser = users[0];
-    $scope.mdlPanel.mates = MatesService.getMates(users, $scope.mdlPanel.currentUser.id);
+    //$scope.mdlPanel.mates = MatesService.getMates(users, $rootScope.currentUser._id);
     
-    $scope.mdlPanel.numShoeMatches = UserService.numShoeMatches;
-    $scope.mdlPanel.numShoeMatches2 = UserService.numShoeMatches2;
-    $scope.mdlPanel.numShoeMatchesAll = UserService.numShoeMatchesAll;
+    $scope.mdlPanel.numShoeMatches = MatesService.numShoeMatches;
+    $scope.mdlPanel.numShoeMatches2 = MatesService.numShoeMatches2;
+    $scope.mdlPanel.numShoeMatchesAll = MatesService.numShoeMatchesAll;
 
 
-    $scope.mdlPanel.addToWishList = UserService.addToWishList;
+    //$scope.mdlPanel.addToLikes = UserService.addToLikes;
     $scope.mdlPanel.test = UserService.test;
   });
 
@@ -29,13 +29,7 @@ app.controller('MiddlePanelController', ['$scope', '$rootScope', 'UserService', 
     console.log(matesArr)
     $scope.main.matesShoePanel.mates = matesArr;
   }
-  $scope.getArr = function(someArr){
-    console.log("someArray1",someArr)
-    $scope.main.test = someArr;
-  }
-  $scope.getArr2 = function(someArr){
-    console.log("some arery2",someArr)
-  }
+
 
 
 
