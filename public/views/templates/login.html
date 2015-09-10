@@ -1,0 +1,315 @@
+<div ng-show="showLoginModal" class="container login-modal-bg">
+  <div class="login-modal">
+    <div ng-show="showGuestLoginForm">
+      <div class="modal-header row">
+        <h3 class="modal-title text-center">Browse as Guest</h3>
+      </div>
+      <div class="modal-body row">
+        <form ng-submit="main.submitGuest()">
+          <!-- row -->
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <div class="radio">
+                <label>
+                  <input type="radio" ng-model="guest.shoeType" value="w">Womens's Shoes</label>
+              </div>
+            </div>
+            <div class="col-sm-6 text-center">
+              <div class="radio">
+                <label>
+                  <input type="radio" ng-model="guest.shoeType" value="m">Men's Shoes</label>
+              </div>
+            </div>
+          </div>
+          <!-- row -->
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <br>
+              <div class="form-group">
+                <label for="selectRight">Right Foot:</label>
+                <select class="form-control" id="selectRight" ng-model="guest.rightFootSize">
+                  <option>4.0</option>
+                  <option>4.5</option>
+                  <option>5.0</option>
+                  <option>5.5</option>
+                  <option>6.0</option>
+                  <option>6.5</option>
+                  <option>7.0</option>
+                  <option>7.5</option>
+                  <option>8.0</option>
+                  <option>8.5</option>
+                  <option>9.0</option>
+                  <option>9.5</option>
+                  <option>10.0</option>
+                  <option>10.5</option>
+                  <option>11.0</option>
+                  <option>11.5</option>
+                  <option>12.0</option>
+                  <option>12.5</option>
+                  <option>13.0</option>
+                  <option>13.5</option>
+                  <option>14.0</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6 text-center">
+              <br>
+              <div class="form-group">
+                <label for="selectLeft">Left Foot:</label>
+                <select class="form-control" id="selectLeft" ng-model="guest.leftFootSize">
+                  <option>4.0</option>
+                  <option>4.5</option>
+                  <option>5.0</option>
+                  <option>5.5</option>
+                  <option>6.0</option>
+                  <option>6.5</option>
+                  <option>7.0</option>
+                  <option>7.5</option>
+                  <option>8.0</option>
+                  <option>8.5</option>
+                  <option>9.0</option>
+                  <option>9.5</option>
+                  <option>10.0</option>
+                  <option>10.5</option>
+                  <option>11.0</option>
+                  <option>11.5</option>
+                  <option>12.0</option>
+                  <option>12.5</option>
+                  <option>13.0</option>
+                  <option>13.5</option>
+                  <option>14.0</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- -->
+          <input type="submit" value="Find Mates" class="btn gb-btn-primary">
+        </form>
+      </div>
+      <div class="modal-footer row">
+        <div class="col-xs-6 col-sm-8">
+          <span ng-click="showLoginForm = !showLoginForm; showGuestLoginForm = !showGuestLoginForm"><a href="javascript:void(0)" class="u-line" class="gb-btn-primary2">Account Login</a></span>
+          <span ng-click="showSignUpForm = !showSignUpForm; showGuestLoginForm = !showGuestLoginForm"><a href="javascript:void(0)" class="u-line" class="gb-btn-primary2">Sign Up</a></span>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+          <button class="btn gb-btn-primary" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <!-- Login -->
+    <div ng-show="showLoginForm">
+      <div class="modal-header row">
+        <h3 class="modal-title text-center">Please Login</h3>
+      </div>
+      <div class="modal-body row">
+        <form class="" ng-submit="submitLoginForm()">
+          <div class="row">
+            <div class="form-group">
+              <label for="login.email">Email:</label>
+              <input type="text" id="login.email" ng-model="login.email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="login.password">Password:</label>
+              <input type="text" id="login.password"  ng-model="login.password" class="form-control">
+            </div>
+          </div>
+          <div class="row" ng-show="false">
+            <div class="col-sm-6 text-center">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optradio">Womens's Shoes</label>
+              </div>
+            </div>
+            <div class="col-sm-6 text-center">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optradio">Men's Shoes</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 text-center" ng-show="false">
+              <br>
+              <div class="form-group">
+                <label for="selectRight">Right Foot:</label>
+                <select class="form-control" id="selectRight">
+                  <option>4.0</option>
+                  <option>4.5</option>
+                  <option>5.0</option>
+                  <option>5.5</option>
+                  <option>6.0</option>
+                  <option>6.5</option>
+                  <option>7.0</option>
+                  <option>7.5</option>
+                  <option>8.0</option>
+                  <option>8.5</option>
+                  <option>9.0</option>
+                  <option>9.5</option>
+                  <option>10.0</option>
+                  <option>10.5</option>
+                  <option>11.0</option>
+                  <option>11.5</option>
+                  <option>12.0</option>
+                  <option>12.5</option>
+                  <option>13.0</option>
+                  <option>13.5</option>
+                  <option>14.0</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6 text-center" ng-show="false">
+              <br>
+              <div class="form-group">
+                <label for="selectLeft">Left Foot:</label>
+                <select class="form-control" id="selectLeft">
+                  <option>4.0</option>
+                  <option>4.5</option>
+                  <option>5.0</option>
+                  <option>5.5</option>
+                  <option>6.0</option>
+                  <option>6.5</option>
+                  <option>7.0</option>
+                  <option>7.5</option>
+                  <option>8.0</option>
+                  <option>8.5</option>
+                  <option>9.0</option>
+                  <option>9.5</option>
+                  <option>10.0</option>
+                  <option>10.5</option>
+                  <option>11.0</option>
+                  <option>11.5</option>
+                  <option>12.0</option>
+                  <option>12.5</option>
+                  <option>13.0</option>
+                  <option>13.5</option>
+                  <option>14.0</option>
+                </select>
+              </div>
+            </div>
+            <input type="submit" value="Find Mates" class="btn gb-btn-primary">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer row">
+        <div class="col-xs-6 col-sm-8">
+            <span ng-click="showSignUpForm = !showSignUpForm; showLoginForm = !showLoginForm"><a href="javascript:void(0)" class="u-line">Sign Up</a></span>
+            <span ng-click="showLoginForm = !showLoginForm; showGuestLoginForm = !showGuestLoginForm"><a href="javascript:void(0)" class="u-line">Guest Login</a></span>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+          <button class="btn gb-btn-primary" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <!-- Sign Up -->
+    <div ng-show="showSignUpForm">
+      <div class="modal-header row">
+        <h3 class="modal-title text-center row">Sign Up</h3>
+      </div>
+      <div class="modal-body row">
+        <form class="" ng-submit="submitSignUpForm()">
+          <div class="row">
+            <div class="form-group">
+              <label for="signup.username">Username:</label>
+              <input type="text" id="signup.username" ng-model="signup.username" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="signup.email">Email:</label>
+              <input type="text" id="signup.email" ng-model="signup.email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="signup.password">Password:</label>
+              <input type="text" id="signup.password" ng-model="signup.password" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="signup.password-confirmation">Password Confirmation:</label>
+              <input type="text" id="signup.password-confirmation" ng-model="signup.passwordConfirmation" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optradio" value="w" ng-model="signup.shoeType">Womens's Shoes</label>
+              </div>
+            </div>
+            <div class="col-sm-6 text-center">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="optradio" value="m" ng-model="signup.shoeType">Men's Shoes</label>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-6 text-center">
+              <div class="form-group">
+                <label for="selectRight">Right Foot:</label>
+                <select class="form-control" id="selectRight" ng-model="signup.rightFoot">
+                  <option>4.0</option>
+                  <option>4.5</option>
+                  <option>5.0</option>
+                  <option>5.5</option>
+                  <option>6.0</option>
+                  <option>6.5</option>
+                  <option>7.0</option>
+                  <option>7.5</option>
+                  <option>8.0</option>
+                  <option>8.5</option>
+                  <option>9.0</option>
+                  <option>9.5</option>
+                  <option>10.0</option>
+                  <option>10.5</option>
+                  <option>11.0</option>
+                  <option>11.5</option>
+                  <option>12.0</option>
+                  <option>12.5</option>
+                  <option>13.0</option>
+                  <option>13.5</option>
+                  <option>14.0</option>
+                </select>
+              </div>
+            </div>
+          <div class="col-sm-6 text-center">
+            <div class="form-group">
+              <label for="selectLeft">Left Foot:</label>
+              <select class="form-control" id="selectLeft" ng-model="signup.leftFoot">
+                <option>4.0</option>
+                <option>4.5</option>
+                <option>5.0</option>
+                <option>5.5</option>
+                <option>6.0</option>
+                <option>6.5</option>
+                <option>7.0</option>
+                <option>7.5</option>
+                <option>8.0</option>
+                <option>8.5</option>
+                <option>9.0</option>
+                <option>9.5</option>
+                <option>10.0</option>
+                <option>10.5</option>
+                <option>11.0</option>
+                <option>11.5</option>
+                <option>12.0</option>
+                <option>12.5</option>
+                <option>13.0</option>
+                <option>13.5</option>
+                <option>14.0</option>
+              </select>
+            </div>
+          </div>
+          <input type="submit" value="Find Mates" class="btn gb-btn-primary">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer row">
+        <div class="col-xs-8">
+          <span ng-click="showSignUpForm = !showSignUpForm; showLoginForm = !showLoginForm"><a href="javascript:void(0)" class="u-line">Account Login</a></span>
+          <span ng-click="showSignUpForm = !showSignUpForm; showGuestLoginForm = !showGuestLoginForm"><a href="javascript:void(0)" class="u-line">Guest Login</a></span>
+        </div>
+        <div class="col-xs-4">
+          <button class="btn gb-btn-primary" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

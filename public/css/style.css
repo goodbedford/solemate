@@ -1,1 +1,188 @@
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer;
+}
+.ng-cloak{display: none;}
+
+a {
+  color: gray;
+  border: 2px solid white;
+  text-decoration: none;
+}
+a, a:hover, a:active, a:visted{
+}
+a:focus{
+  color: gray;
+  text-decoration: none;
+}
+a:hover {
+  color: #FF0080;
+  border:2px solid #FF0080;
+  text-decoration: none;
+
+}
+a:active{
+  color: #FF0080;
+  background-color: #CCCCCC;
+}
+
+a:visted {
+  color: #FF0080;
+}
+.badge-bg01 {
+  background-color: #FF0080;
+}
+
+.bdr-dotted {
+  border-bottom: 1px dotted #FF0080;
+}
+.bolder{
+  color:#FF0080;
+}
+.brand{
+  color: #FF0080;
+}
+
+.btm-margin01 {
+  margin-bottom: 1em;
+}
+.gb-btn-primary{
+  width:100%;
+  background-color: #FF0080;
+  color: white;
+  border: 1px solid #FF0080;
+  outline-color: #FF0080;
+
+}
+.gb-btn-primary:hover{
+  background-color: #ccc;
+  color:white;
+  border: 1px solid #FF0080;
+}
+.gb-btn-primary:active, .gb-btn-primary:focus{
+  background-color: #ccc;
+  color: #FF0080;
+  border: 1px solid #FF0080;
+
+}
+form{
+  padding: 1em;
+}
+.circle-bg {
+  background-color: yellow;
+  display: inline-block;
+  vertical-align: middle;
+  border: 2px solid #FF0080;
+  border-radius: 100%;
+  width: 100%;
+  max-width: 120px;
+}
+
+.color-strawberry {
+  background-color: #FF0080;
+}
+.colored{
+  color: #FF0080;
+}
+.default-profile {
+  color: #FF0080;
+  /*background-color: #ccc;*/
+  font-size: 3em;
+}
+
+.dev-line {
+  border: 1px solid red;
+  /*border-top: 1px solid red;*/
+}
+  
+.hr-bar01 {
+  border-bottom: 20px solid #FF0080;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-bottom: 1em;
+}
+
+.hr-bar02 {
+  padding: 1em;
+  border-bottom: 2px solid #FF0080;
+  margin-bottom: 1em;
+}
+.likeShoe{
+  cursor: pointer;
+}
+.login-modal{
+  position: absolute;
+  background-color:white;
+  margin: 10% 15%;
+  width: 70%;
+  padding: 1em;
+  border:5px solid #FF0080;
+
+}
+.login-modal-bg{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 5;
+  width: 100%;
+  height: 1000px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.msgPanel{
+}
+.modal-header{
+}
+.navbar {
+  /*background-color: #FF0080;*/
+  background-color: white;
+  color: green;
+  z-index: 2;
+}
+
+.navbar-nav {}
+
+.navbar-default .navbar-nav>li>a {
+  /*color: gray;*/
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:focus,
+.navbar-default .navbar-nav>.active>a:hover {
+  color: #FF0080;
+  background-color: #E6E6E6;
+  border: 2px solid #FF0080;
+  text-decoration: none;
+}
+.quote{
+  color: gray;
+}
+.rt-panel-img{
+}
+.pad-1em {
+  padding: 1em;
+}
+.profile-box{
+  height:10em;
+  vertical-align: middle;
+}
+
+
+.thumb {
+  height: 5em;
+  width: 5em;
+}
+
+.thumb-bg {
+  background-color: #CCCCCC;
+}
+
+.top-margin {
+  margin-top: 75px;
+  padding: 5px;
+}
+.u-line{
+  text-decoration: underline;
+}
