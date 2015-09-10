@@ -115,8 +115,9 @@ form{
 .login-modal{
   position: absolute;
   background-color:white;
-  margin: 10% 15%;
-  width: 70%;
+  margin-top: 10%;
+  /*margin: 10% 15%;*/
+  /*width: 70%;*/
   padding: 1em;
   border:5px solid #FF0080;
 
