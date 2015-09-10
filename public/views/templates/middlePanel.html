@@ -16,9 +16,9 @@
           <h5><span class="bdr-dotted">{{shoe.name}}</span></h5>
           <p>{{shoe.price | currency}}</p>
           <div class="likeShoe" ng-click="likeShoe = !likeShoe">
-           <!-- <a ng-href="javascript:void(0)"  ng-click="mdlPanel.addToLikes(shoe.id);$event.stopPropagation()" > -->
-            <span class="glyphicon glyphicon-heart" ng-show="!likeShoe"></span>
-            <span class="glyphicon glyphicon-heart colored" ng-show="likeShoe"></span>
+            <!-- <a ng-href="javascript:void(0)" ng-click="mdlPanel.addToLikes(shoe.id)"> -->
+              <span class="glyphicon glyphicon-heart" ng-show="!likeShoe"></span>
+              <span class="glyphicon glyphicon-heart colored" ng-show="likeShoe"></span>
             <!-- </a> -->
           </div>
         </div>

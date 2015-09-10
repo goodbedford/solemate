@@ -18,21 +18,7 @@ app.factory('UserService', ['$resource', function($resource) {
     });
   }])
   .factory('MatesService', ['$rootScope', 'UserService', function($rootScope, UserService) {
-    var factory = {}
-
-
-    // factory.getShoes = function() {
-    //   return shoes;
-    // }
-    // factory.getUserById = function(id) {
-    //   var foundUser = null;
-    //   users.forEach(function(user) {
-    //     if (user.id == id) {
-    //       foundUser = user;
-    //     }
-    //   });
-    //   return foundUser;
-    // }
+    var factory = {};
 
 
     factory.addUser = function() {
@@ -43,18 +29,17 @@ app.factory('UserService', ['$resource', function($resource) {
       //console.log("currenUser in before :", $rootScope.currentUser.mates)
       users.forEach(function(user) {
         if (user.leftFoot == $rootScope.currentUser.rightFoot &&
-            user.rightFoot == $rootScope.currentUser.leftFoot) {
+          user.rightFoot == $rootScope.currentUser.leftFoot) {
           $rootScope.displayMates.push(user);
-          if($rootScope.currentUser.mates.indexOf(user._id) < 0){
-          $rootScope.currentUser.mates.push(user._id);
-          console.log("this is current user in addMates", $rootScope.currentUser.mates)
-            // console.log("user to:", user)
-          UserService.update(
-          {
-            id: $rootScope.currentUser._id
-          }, $rootScope.currentUser, function(updatedUser) {
-            console.log("updated user:", updatedUser);
-          });
+          if ($rootScope.currentUser.mates.indexOf(user._id) < 0) {
+            $rootScope.currentUser.mates.push(user._id);
+            console.log("this is current user in addMates", $rootScope.currentUser.mates)
+              // console.log("user to:", user)
+            UserService.update({
+              id: $rootScope.currentUser._id
+            }, $rootScope.currentUser, function(updatedUser) {
+              console.log("updated user:", updatedUser);
+            });
           }
         }
       });
@@ -74,7 +59,7 @@ app.factory('UserService', ['$resource', function($resource) {
       return mates;
     }
 
-    factory.numShoeMatches = function( shoeId) {
+    factory.numShoeMatches = function(shoeId) {
       //var num = 0;
       var matesWithShoeMatch = [];
       var mates = [];
@@ -105,7 +90,7 @@ app.factory('UserService', ['$resource', function($resource) {
       //   var foundMate = UserService.getUserById({id:mateId}, function(user){
       //     mates.push(user)
       //   });
-        
+
       // });
       // console.log("mates", mates)
       $rootScope.displayMates.forEach(function(mate) {
@@ -162,52 +147,19 @@ app.factory('UserService', ['$resource', function($resource) {
 
     factory.addTolikes = function(shoeId) {
       console.log("clicked");
-      // if ($rootScope.currentUser.likes.indexOf(shoeId) < 0) {
-      //   $rootScope.currentUser.likes.push(shoeId)
-      //   console.log("user likes after:", $rootScope.currentUser.likes)
-      // } else {
-      //   var index = $rootScope.currentUser.likes.indexOf(shoeId);
-      //   $rootScope.currentUser.likes.splice(index, 1);
-      //   console.log("user likes else::", $rootScope.currentUser.likes)
-      // }
+      if ($rootScope.currentUser.likes.indexOf(shoeId) < 0) {
+        $rootScope.currentUser.likes.push(shoeId)
+        console.log("user likes after:", $rootScope.currentUser.likes)
+      } else {
+        var index = $rootScope.currentUser.likes.indexOf(shoeId);
+        $rootScope.currentUser.likes.splice(index, 1);
+        console.log("user likes else::", $rootScope.currentUser.likes)
+      }
     }
 
     return factory;
   }]);
-  // var users = [{
-  //   id: 1,
-  //   username: 'username01',
-  //   email: 'test01@gmail.com',
-  //   password: 'password',
-  //   rightFoot: '6.5',
-  //   leftFoot: '7.0',
-  //   shoeType: 'w',  
-  //   mates: [2, 3],
-  //   likes: [],
-  //   msg: []
-  // }, {
-  //   id: 2,
-  //   username: 'username02',
-  //   email: 'test02@gmail.com',
-  //   password: 'password',
-  //   rightFoot: '7.0',
-  //   leftFoot: '6.5',
-  //   shoeType: 'w',
-  //   mates: [1],
-  //   likes: [1],
-  //   msg: []
-  // }, {
-  //   id: 3,
-  //   username: 'username03',
-  //   email: 'test03@gmail.com',
-  //   password: 'password',
-  //   rightFoot: '7.0',
-  //   leftFoot: '6.5',
-  //   shoeType: 'w',
-  //   mates: [1],
-  //   likes: [1, 2],
-  //   msg: []
-  // }];
+
 
 
 // return factory;

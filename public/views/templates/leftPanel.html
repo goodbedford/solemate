@@ -2,7 +2,7 @@
 <div ng-controller="LeftPanelController" class=" text-center hidden-xs">
   <!-- avatar -->
   <div class="row profile-box">
-    <div >
+    <div>
       <div class="default-profile">
         <span><i class="fa fa-user"></i></span>
         <!-- <img ng-src="" alt="" class=""> -->
@@ -19,17 +19,18 @@
   <div class="row">
     <div class="hr-bar02">
       <h3 class=""><span class="badge badge-bg01">{{displayMates.length}}</span>
-Sole Mates</h3>
+          Sole Mates
+      </h3>
     </div>
-    </div>
-    <div ng-repeat="mate in displayMates">
+  </div>
+  <div ng-repeat="mate in displayMates">
     <div class="lp-well row">
       <p>{{mate.username}}</p>
       <div class="col-xs-12 btm-margin01">
         <span class="col-xs-6">Left:<br><span class="badge badge-bg01">{{mate.leftFoot}}</span></span>
         <span class="col-xs-6">Right:<br><span class="badge badge-bg01">{{mate.rightFoot}}</span></span>
       </div>
-      </div>
+    </div>
   </div>
   <!-- end leftPanel -->
 </div>

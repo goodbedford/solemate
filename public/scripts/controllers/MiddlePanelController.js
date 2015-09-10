@@ -9,9 +9,11 @@ app.controller('MiddlePanelController', ['$scope', '$rootScope', 'UserService', 
   $scope.mdlPanel.users = UserService.getUsers(function( users ){
 
 
-    $scope.mdlPanel.currentUser = users[0];
+    //$scope.mdlPanel.currentUser = users[0];
     //$scope.mdlPanel.mates = MatesService.getMates(users, $rootScope.currentUser._id);
     
+  });
+
     $scope.mdlPanel.numShoeMatches = MatesService.numShoeMatches;
     $scope.mdlPanel.numShoeMatches2 = MatesService.numShoeMatches2;
     $scope.mdlPanel.numShoeMatchesAll = MatesService.numShoeMatchesAll;
@@ -19,8 +21,6 @@ app.controller('MiddlePanelController', ['$scope', '$rootScope', 'UserService', 
 
     $scope.mdlPanel.addToLikes = MatesService.addToLikes;
     $scope.mdlPanel.test = UserService.test;
-  });
-
 
   //right panel
   $scope.showMsg = false;

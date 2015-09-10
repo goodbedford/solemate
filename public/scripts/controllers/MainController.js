@@ -16,12 +16,12 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
 
   //open modal
   $scope.open = function() {
-    $scope.showLoginModal = true;
-    $scope.showLoginForm = true;
-    $scope.showSignUpForm = false;
-    $scope.showGuestLoginForm = false;
-  }
-  //close modal
+      $scope.showLoginModal = true;
+      $scope.showLoginForm = true;
+      $scope.showSignUpForm = false;
+      $scope.showGuestLoginForm = false;
+    }
+    //close modal
   $scope.cancel = function() {
       $scope.guest = {};
 
@@ -96,9 +96,9 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
       console.log("root scope: ", $rootScope.currentUser)
     });
 
-    UserService.getUsers(function (users){
-           MatesService.addMates(users);
-         });
+    UserService.getUsers(function(users) {
+      MatesService.addMates(users);
+    });
 
     $scope.cancel();
   }
@@ -138,43 +138,11 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
           //      });
           //   }
           // });
-
           MatesService.addMates(users);
-          //console.log("this is rootscope in mates service", $rootScope.currentUser);
         });
       });
       $scope.cancel();
     }
     // $scope.main.matesShoePanel;
-
-
-  // $scope.main.showMatesShowPanel = false;
-  // $scope.animationsEnabled = true;
-
-  // $scope.open = function(size) {
-
-  //   var modalInstance = $modal.open({
-  //     animation: $scope.animationsEnabled,
-  //     templateUrl: 'views/templates/login.html',
-  //     controller:  function ($scope, $modalInstance) {},
-  //     size: size
-  //   });
-
-  //   modalInstance.result.then(function(modalData) {
-  //     $scope.modalData = modalData;
-  //   }, function() {
-  //     $log.info('Modal dismissed at: ' + new Date());
-  //   });
-  // };
-
-
-  // $scope.ok = function() {
-  //   $modalInstance.close($scope.modalData);
-  // };
-
-  // $scope.cancel = function() {
-  //   $modalInstance.dismiss('cancel');
-  // };
-
 
 }]);
