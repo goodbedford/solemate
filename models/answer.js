@@ -1,9 +1,12 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+  Schema = mongoose.Schema;
 
 
 var AnswerSchema = new Schema({
-  content: {type: String, required: true}
+  content: {
+    type: String,
+    required: true
+  }
 });
 
 
