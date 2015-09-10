@@ -102,18 +102,18 @@
         <h3 class="modal-title text-center">Please Login</h3>
       </div>
       <div class="modal-body row">
-        <form class="">
+        <form class="" ng-submit="submitLoginForm()">
           <div class="row">
             <div class="form-group">
               <label for="login.email">Email:</label>
-              <input type="text" id="login.email" class="form-control">
+              <input type="text" id="login.email" ng-model="login.email" class="form-control">
             </div>
             <div class="form-group">
               <label for="login.password">Password:</label>
-              <input type="text" id="login.password" class="form-control">
+              <input type="text" id="login.password"  ng-model="login.password" class="form-control">
             </div>
           </div>
-          <div class="row">
+          <div class="row" ng-show="false">
             <div class="col-sm-6 text-center">
               <div class="radio">
                 <label>
@@ -128,7 +128,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-6 text-center">
+            <div class="col-sm-6 text-center" ng-show="false">
               <br>
               <div class="form-group">
                 <label for="selectRight">Right Foot:</label>
@@ -157,7 +157,7 @@
                 </select>
               </div>
             </div>
-            <div class="col-sm-6 text-center">
+            <div class="col-sm-6 text-center" ng-show="false">
               <br>
               <div class="form-group">
                 <label for="selectLeft">Left Foot:</label>
@@ -210,19 +210,19 @@
           <div class="row">
             <div class="form-group">
               <label for="signup.username">Username:</label>
-              <input type="text" id="signup.username" class="form-control">
+              <input type="text" id="signup.username" ng-model="signup.username" class="form-control">
             </div>
             <div class="form-group">
               <label for="signup.email">Email:</label>
-              <input type="text" id="signup.email" class="form-control">
+              <input type="text" id="signup.email" ng-model="signup.email" class="form-control">
             </div>
             <div class="form-group">
               <label for="signup.password">Password:</label>
-              <input type="text" id="signup.password" class="form-control">
+              <input type="text" id="signup.password" ng-model="signup.password" class="form-control">
             </div>
             <div class="form-group">
               <label for="signup.password-confirmation">Password Confirmation:</label>
-              <input type="text" id="signup.password-confirmation" class="form-control">
+              <input type="text" id="signup.password-confirmation" ng-model="signup.passwordConfirmation" class="form-control">
             </div>
           </div>
           <div class="row">

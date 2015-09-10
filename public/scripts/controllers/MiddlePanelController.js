@@ -1,19 +1,26 @@
-app.controller('MiddlePanelController', ['$scope', 'UserService', 'ShoeService', function($scope, UserService, ShoeService) {
+app.controller('MiddlePanelController', ['$scope', '$rootScope', 'UserService', 'MatesService', 'ShoeService', function($scope, $rootScope, UserService, MatesService, ShoeService) {
   $scope.mdlPanel = {};
-  $scope.mdlPanel.shoes = ShoeService.getShoes();
   // console.log($scope.mdlPanel.shoes)
-  
-  $scope.mdlPanel.users = UserService.getUsers();
-  $scope.mdlPanel.currentUser = $scope.mdlPanel.users[0];
-  $scope.mdlPanel.mates = UserService.getMates($scope.mdlPanel.users, $scope.mdlPanel.currentUser.id);
-  
-  $scope.mdlPanel.numShoeMatches = UserService.numShoeMatches;
-  $scope.mdlPanel.numShoeMatches2 = UserService.numShoeMatches2;
-  $scope.mdlPanel.numShoeMatchesAll = UserService.numShoeMatchesAll;
+  console.log("shoe service:", ShoeService)
+  $scope.mdlPanel.shoes = ShoeService.getShoes();
+
+  $scope.likeShoe = false;
+  $scope.perPage = 20;
+  $scope.mdlPanel.users = UserService.getUsers(function( users ){
 
 
-  $scope.mdlPanel.addToWishList = UserService.addToWishList;
-  $scope.mdlPanel.test = UserService.test;
+    $scope.mdlPanel.currentUser = users[0];
+    $scope.mdlPanel.mates = MatesService.getMates(users, $scope.mdlPanel.currentUser.id);
+    
+    $scope.mdlPanel.numShoeMatches = UserService.numShoeMatches;
+    $scope.mdlPanel.numShoeMatches2 = UserService.numShoeMatches2;
+    $scope.mdlPanel.numShoeMatchesAll = UserService.numShoeMatchesAll;
+
+
+    $scope.mdlPanel.addToWishList = UserService.addToWishList;
+    $scope.mdlPanel.test = UserService.test;
+  });
+
 
   //right panel
   $scope.showMsg = false;

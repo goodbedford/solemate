@@ -57,7 +57,7 @@ app.factory('ShoeService', [function() {
       counter: 0
     }
   ]
-  var factory = {}
+  var factory = {};
   factory.getShoes = function() {
     return shoes;
   }

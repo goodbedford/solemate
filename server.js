@@ -114,8 +114,17 @@ app.get('/api/users/:id', function(req, res){
   });
 });
 
+//GET user by email
+app.get('/api/users/email/:email', function(req, res){
+  var user_email = req.params.email;
+  User.findOne({email: user_email}, function(err, foundUser){
+    console.log("found by email", foundUser);
+    res.json(foundUser);
+  });
+});
+
 //POST user
-app.post('/api/users/', function(req, res){
+app.post('/api/users', function(req, res){
   var newUser = new User({
     username:  req.body.username, 
     email: req.body.email,
@@ -124,12 +133,18 @@ app.post('/api/users/', function(req, res){
     rightFoot: req.body.rightFoot,
     shoeType: req.body.shoeType
   });
+  console.log("the newUser::", newUser)
 
-  User.createSecure( newUser,
-    function (err, secureUser){
-      res.json(secureUser);
-    }
-  );
+  newUser.save(function(err, savedUser){
+    console.log(savedUser);
+    res.json(savedUser);
+  });
+
+  // User.createSecure( newUser,
+  //   function (err, secureUser){
+  //     res.json(secureUser);
+  //   }
+  // );
 });
 
 //PUT - update user by id
@@ -142,15 +157,19 @@ app.put('/api/users/:id', function(req, res){
     foundUser.password = req.body.password,
     foundUser.leftFoot = req.body.leftFoot,
     foundUser.rightFoot = req.body.rightFoot,
-    foundUser.shoeType = req.body.shoeType
+    foundUser.shoeType = req.body.shoeType,
+    foundUser.likes = req.body.likes,
+    //foundUser.messages.push(req.body.messages),
+    foundUser.mates = req.body.mates
   });
 });
 
 //Delete user by id
 app.delete('/api/users/:id', function(req, res){
-  User.find({_id: req.params.id}, function(err, user){
-    console.log("user deleted", user);
-    res.send("user was deleted:");
+  var userId= req.params.id;
+  User.findOneAndRemove({_id: req.params.id}, function(err, user){
+    console.log("user deleted", userId);
+    res.send("user was deleted:",userId);
   });
 });
 

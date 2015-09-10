@@ -83,7 +83,9 @@ form{
 .color-strawberry {
   background-color: #FF0080;
 }
-
+.colored{
+  color: #FF0080;
+}
 .default-profile {
   color: #FF0080;
   /*background-color: #ccc;*/
@@ -106,6 +108,9 @@ form{
   padding: 1em;
   border-bottom: 2px solid #FF0080;
   margin-bottom: 1em;
+}
+.likeShoe{
+  cursor: pointer;
 }
 .login-modal{
   position: absolute;
