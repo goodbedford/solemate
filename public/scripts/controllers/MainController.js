@@ -8,18 +8,20 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
   $scope.main.test = "testing";
   $scope.main.matesShoePanel = {};
   $scope.main.showMatesShowPanel = false;
-  //modal
+  //modal show or hide
   $scope.showLoginModal = true;
   $scope.showLoginForm = false;
   $scope.showSignUpForm = false;
   $scope.showGuestLoginForm = true;
 
+  //open modal
   $scope.open = function() {
     $scope.showLoginModal = true;
     $scope.showLoginForm = true;
     $scope.showSignUpForm = false;
     $scope.showGuestLoginForm = false;
   }
+  //close modal
   $scope.cancel = function() {
       $scope.guest = {};
 
@@ -120,8 +122,8 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
                 user.rightFoot == $rootScope.currentUser.leftFoot){
               //console.log("this is current user before addMates", $rootScope.currentUser.mates)
 
-              $rootScope.currentUser.mates.push(user);
-              console.log("this is current user in addMates", $rootScope.currentUser.mates)
+              $rootScope.currentUser.mates.push(user._id);
+              console.log("this is current user in addMates", $rootScope.currentUser)
               // console.log("user to:", user)
                UserService.update({id: $rootScope.currentUser._id},$rootScope.currentUser, function(updatedUser){
                console.log("updated user:",updatedUser);

@@ -150,17 +150,23 @@ app.post('/api/users', function(req, res){
 //PUT - update user by id
 app.put('/api/users/:id', function(req, res){
   var user_id = req.params.id;
-
+  //console.log("req.body of update:", req.body)
   User.findOne({_id: user_id}, function(err, foundUser){
-    foundUser.username =  req.body.username, 
-    foundUser.email = req.body.email,
-    foundUser.password = req.body.password,
-    foundUser.leftFoot = req.body.leftFoot,
-    foundUser.rightFoot = req.body.rightFoot,
-    foundUser.shoeType = req.body.shoeType,
-    foundUser.likes = req.body.likes,
-    //foundUser.messages.push(req.body.messages),
-    foundUser.mates = req.body.mates
+    //foundUser = req.body;
+    //console.log("response from update user", foundUser)
+  
+    foundUser.username =  req.body.username;
+    foundUser.email = req.body.email;
+    foundUser.password = req.body.password;
+    foundUser.leftFoot = req.body.leftFoot;
+    foundUser.rightFoot = req.body.rightFoot;
+    foundUser.shoeType = req.body.shoeType;
+    foundUser.likes = req.body.likes;
+    foundUser.messages = req.body.messages;
+    foundUser.mates = req.body.mates;
+    foundUser.save(function(err, savedUser){
+      res.json(savedUser);
+    });
   });
 });
 
