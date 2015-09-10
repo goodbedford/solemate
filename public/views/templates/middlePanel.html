@@ -2,12 +2,12 @@
   <div class="pad-1em">
     <span class="">{{mdlPanel.numShoeMatchesAll(mdlPanel.shoes) }} shoe matches found</span> | <a href="#" ng-click="">View<span>{{perPage}}</span> per page </a>
   </div>
-  <div ng-repeat="shoe in mdlPanel.shoes" ng-click="mdlPanel.addToWishList(currentUser, shoe.id)" class="col-xs-6 col-sm-4">
+  <div ng-repeat="shoe in mdlPanel.shoes" class="col-xs-6 col-sm-4">
     <div class="thumbnail">
       <div class="text-right pad-1em hr-bar02">
         <!-- <div ng-click="$scope.main.test = mdlPanel.numShoeMatches2(mdlPanel.currentUser, shoe); getArr2()">click</div> -->
         <!--         <a ng-href="javascript:void(0)" ng-click="main.matesShoePanel = mdlPanel.numShoeMatches2( shoe);$event.stopPropagation()">{{(mdlPanel.numShoeMatches(shoe.id) ).length}} Mates -->
-        <a ng-href="javascript:void(0)" ng-click="main.matesShoePanel = {mates: displayMates, shoe: shoeUrl};$event.stopPropagation()">{{(mdlPanel.numShoeMatches(shoe.id) ).length}} Mates</a>
+        <a ng-href="javascript:void(0)" ng-click="main.matesShoePanel = mdlPanel.numShoeMatches2(shoe.id) ;$event.stopPropagation()">{{(mdlPanel.numShoeMatches(shoe.id) ).length}} Mates</a>
       </div>
       <!-- caption panel -->
       <div class="row text-center">
@@ -15,9 +15,11 @@
         <div class="caption">
           <h5><span class="bdr-dotted">{{shoe.name}}</span></h5>
           <p>{{shoe.price | currency}}</p>
-          <div class="likeShoe" ng-click="likeShoe = !likeShoe;$event.stopPropagation()">
+          <div class="likeShoe" ng-click="likeShoe = !likeShoe">
+           <!-- <a ng-href="javascript:void(0)"  ng-click="mdlPanel.addToLikes(shoe.id);$event.stopPropagation()" > -->
             <span class="glyphicon glyphicon-heart" ng-show="!likeShoe"></span>
             <span class="glyphicon glyphicon-heart colored" ng-show="likeShoe"></span>
+            <!-- </a> -->
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ app.controller('MiddlePanelController', ['$scope', '$rootScope', 'UserService', 
     $scope.mdlPanel.numShoeMatchesAll = MatesService.numShoeMatchesAll;
 
 
-    //$scope.mdlPanel.addToLikes = UserService.addToLikes;
+    $scope.mdlPanel.addToLikes = MatesService.addToLikes;
     $scope.mdlPanel.test = UserService.test;
   });
 

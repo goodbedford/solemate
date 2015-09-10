@@ -185,6 +185,10 @@ form{
 .thumb-bg {
   background-color: #CCCCCC;
 }
+.thumbnail:hover{
+  box-shadow: 10px 10px 35px 0px rgba(255, 0, 128, 0.15);
+
+}
 
 .top-margin {
   margin-top: 75px;

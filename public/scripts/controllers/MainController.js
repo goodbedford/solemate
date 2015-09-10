@@ -90,11 +90,16 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
       shoeType: $scope.signup.shoeType
     }
 
-    UserService.save(newUser, function(data) {
-      console.log(data);
-      $rootScope.currentUser = data;
+    UserService.save(newUser, function(user) {
+      console.log(user);
+      $rootScope.currentUser = user;
       console.log("root scope: ", $rootScope.currentUser)
     });
+
+    UserService.getUsers(function (users){
+           MatesService.addMates(users);
+         });
+
     $scope.cancel();
   }
 

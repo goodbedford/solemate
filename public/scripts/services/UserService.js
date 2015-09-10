@@ -161,15 +161,15 @@ app.factory('UserService', ['$resource', function($resource) {
     }
 
     factory.addTolikes = function(shoeId) {
-      console.log("clicked")
-      if ($rootScope.currentUser.likes.indexOf(shoeId) < 0) {
-        $rootScope.currentUser.likes.push(shoeId)
-        console.log("user likes after:", user.likes)
-      } else {
-        var index = $rootScope.currentUser.likes.indexOf(shoeId);
-        $rootScope.currentUser.likes.splice(index, 1);
-        console.log("user likes else::", $rootScope.currentUser.likes)
-      }
+      console.log("clicked");
+      // if ($rootScope.currentUser.likes.indexOf(shoeId) < 0) {
+      //   $rootScope.currentUser.likes.push(shoeId)
+      //   console.log("user likes after:", $rootScope.currentUser.likes)
+      // } else {
+      //   var index = $rootScope.currentUser.likes.indexOf(shoeId);
+      //   $rootScope.currentUser.likes.splice(index, 1);
+      //   console.log("user likes else::", $rootScope.currentUser.likes)
+      // }
     }
 
     return factory;
