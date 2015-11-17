@@ -1,12 +1,12 @@
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  bcrypt = require('bcrypt'),
-  salt = bcrypt.genSalt(10),
-  session = require('express-session'),
-  Shoe = require('./shoe.js'),
-  Message = require('./message.js'),
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var bcrypt = require('bcrypt');
+var salt = bcrypt.genSalt(10);
+var session = require('express-session');
+var Shoe = require('./shoe.js');
+var Message = require('./message.js');
 
-  ObjectId = Schema.Types.ObjectId;
+var ObjectId = Schema.Types.ObjectId;
 
 var UserSchema = new Schema({
   username: {
@@ -47,7 +47,6 @@ var UserSchema = new Schema({
     type: ObjectId,
     ref: 'Message'
   }],
-
   mates: [{
     type: ObjectId,
     ref: 'User'
@@ -79,7 +78,7 @@ UserSchema.statics.authenticate = function(email, password, callback) {
   }, function(err, user) {
 
     if (user === null) {
-      callback("error: No email", null)
+      callback("error: No email", null);
         //throw new Error('Can\'t find user with email-' + email);
     } else if (user.checkPassword(password)) {
       callback(null, user);

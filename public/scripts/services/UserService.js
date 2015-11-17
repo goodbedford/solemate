@@ -23,7 +23,7 @@ app.factory('UserService', ['$resource', function($resource) {
 
     factory.addUser = function() {
       newUser = {};
-    }
+    };
 
     factory.addMates = function(users) {
       //console.log("currenUser in before :", $rootScope.currentUser.mates)
@@ -33,7 +33,7 @@ app.factory('UserService', ['$resource', function($resource) {
           $rootScope.displayMates.push(user);
           if ($rootScope.currentUser.mates.indexOf(user._id) < 0) {
             $rootScope.currentUser.mates.push(user._id);
-            console.log("this is current user in addMates", $rootScope.currentUser.mates)
+            console.log("this is current user in addMates", $rootScope.currentUser.mates);
               // console.log("user to:", user)
             UserService.update({
               id: $rootScope.currentUser._id
@@ -43,7 +43,7 @@ app.factory('UserService', ['$resource', function($resource) {
           }
         }
       });
-    }
+    };
 
     //searches 
     factory.getMates = function(users, currentId) {
@@ -57,7 +57,7 @@ app.factory('UserService', ['$resource', function($resource) {
         }
       });
       return mates;
-    }
+    };
 
     factory.numShoeMatches = function(shoeId) {
       //var num = 0;
@@ -73,15 +73,15 @@ app.factory('UserService', ['$resource', function($resource) {
         mate.likes.forEach(function(shoe_id) {
           if (shoeId == shoe_id) {
             //num += 1;
-            matesWithShoeMatch.push(mate)
+            matesWithShoeMatch.push(mate);
               //console.log("Im in here,", num)
           } else {
-            console.log("didn't find shoe Matches")
+            console.log("didn't find shoe Matches");
           }
         });
       });
       return matesWithShoeMatch;
-    }
+    };
     factory.numShoeMatchesAll = function(shoes) {
       var num = 0;
       var matesWithShoeMatch = [];
