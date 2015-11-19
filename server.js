@@ -7,8 +7,7 @@ var express = require('express'),
   session = require('express-session'),
   dotenv = require('dotenv');
 //require models
-// var Question = require('./models/question');
-// var Answer = require('./models/answer');
+
 var Message = require("./models/message.js"),
     Shoe = require("./models/shoe.js"),
     User = require("./models/user.js");
@@ -55,13 +54,6 @@ app.get('/api/shoes', function(req, res){
     res.json(shoes);
   });
 });
-//GET shoe by id
-app.get('/api/shoes/:id', function(req, res){
-  var shoe_id = req.params.id;
-  Shoe.findOne({_id: shoe_id}, function(err, foundShoe){
-    res.json(foundShoe);
-  });
-});
 // Post Shoe
 app.post('/api/shoes/', function(req, res){
   var newShoe = new Shoe({
@@ -76,15 +68,22 @@ app.post('/api/shoes/', function(req, res){
     res.json(savedShoe);
   });
 });
+//GET shoe by id
+app.get('/api/shoes/:id', function(req, res){
+  var shoe_id = req.params.id;
+  Shoe.findOne({_id: shoe_id}, function(err, foundShoe){
+    res.json(foundShoe);
+  });
+});
 //PUT -UPDATE shoe by id
 app.put('/api/shoes/:id', function(req, res){
   var shoe_id = req.params.id;
   Shoe.findOne({_id: shoe_id}, function(err, foundShoe){
-    foundShoe.name = req.body.name,
-    foundShoe.brand = req.body.brand,
-    foundShoe.price = req.body.price,
-    foundShoe.shoeUrl = req.body.shoeUrl,
-    foundShoe.type = req.body.type
+    foundShoe.name = req.body.name;
+    foundShoe.brand = req.body.brand;
+    foundShoe.price = req.body.price;
+    foundShoe.shoeUrl = req.body.shoeUrl;
+    foundShoe.type = req.body.type;
 
     foundShoe.save(function(err, savedShoe){
       res.json(savedShoe);
@@ -133,10 +132,13 @@ app.post('/api/users', function(req, res){
     rightFoot: req.body.rightFoot,
     shoeType: req.body.shoeType
   });
-  console.log("the newUser::", newUser)
+  console.log("the newUser::", newUser);
 
   newUser.save(function(err, savedUser){
     console.log(savedUser);
+    if( err){
+      console.log("some error with posting users", err);
+    }
     res.json(savedUser);
   });
 

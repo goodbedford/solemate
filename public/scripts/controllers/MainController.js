@@ -1,10 +1,10 @@
-app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserService', 'MatesService', function($scope, $rootScope, $resource, UserService, MatesService) {
+app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 'UserService', 'MatesService', function($scope, $rootScope, $resource, $http, UserService, MatesService) {
   $scope.isCollapsed = true;
   $scope.showMiniSplash = function() {
     $scope.miniSplash = true;
-  }
+  };
 
-  $scope.main = {}
+  $scope.main = {};
   $scope.main.test = "testing";
   $scope.main.matesShoePanel = {};
   $scope.main.showMatesShowPanel = false;
@@ -15,37 +15,43 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
   $scope.showGuestLoginForm = true;
 
   //open modal
-  $scope.open = function() {
-      $scope.showLoginModal = true;
-      $scope.showLoginForm = true;
-      $scope.showSignUpForm = false;
-      $scope.showGuestLoginForm = false;
-    }
+  // $scope.open = function() {
+  //     $scope.showLoginModal = true;
+  //     $scope.showLoginForm = true;
+  //     $scope.showSignUpForm = false;
+  //     $scope.showGuestLoginForm = false;
+  //   };
     //close modal
   $scope.cancel = function() {
       $scope.guest = {};
 
-      if ($scope.showGuestLoginForm == true) {
-        $scope.showGuestLoginForm = false;
-        $scope.showSignUpForm = false;
-        $scope.showLoginModal = false;
+      $scope.showGuestLoginForm = false;
+      $scope.showLoginForm = false;
+      $scope.showSignUpForm = false;
+      $scope.showLoginModal = false;
 
-      } else if ($scope.showLoginForm == true) {
-        $scope.showLoginForm = false;
-        $scope.showGuestLoginForm = false;
-        $scope.showSignUpForm = false;
-        $scope.showLoginModal = false;
+      //you don't need these conditionals
+      // if ($scope.showGuestLoginForm == true) {
+      //   $scope.showGuestLoginForm = false;
+      //   $scope.showSignUpForm = false;
+      //   $scope.showLoginModal = false;
 
-      } else {
-        $scope.showSignUpForm = false;
-        $scope.showGuestLoginForm = false;
-        $scope.showLoginForm = false;
+      // } else if ($scope.showLoginForm == true) {
+      //   $scope.showLoginForm = false;
+      //   $scope.showGuestLoginForm = false;
+      //   $scope.showSignUpForm = false;
+      //   $scope.showLoginModal = false;
 
-        $scope.showLoginModal = false;
+      // } else {
+      //   $scope.showSignUpForm = false;
+      //   $scope.showGuestLoginForm = false;
+      //   $scope.showLoginForm = false;
 
-      }
-    }
-    //guest
+      //   $scope.showLoginModal = false;
+
+      // }
+    };
+  //guest
   $scope.guest = {};
   $scope.guest = {
     shoeType: "w"
@@ -60,19 +66,34 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', 'UserServ
 
   //submit $scope.guest
   $scope.main.submitGuest = function() {
+    var guest = {
+        username:  "guest",
+        email: "guest@gmail.com",
+        password: "password",
+        leftFoot: $scope.guest.leftFootSize,
+        rightFoot: $scope.guest.rightFootSize,
+        shoeType: $scope.guest.shoeType
+    };
 
-    $scope.guest.shoeType; //mens womens
-    $scope.guest.leftFootSize;
-    $scope.guest.rightFootSize;
-    $scope.guest.username = "guest";
+
+    $http({
+      method: 'post',
+      data: guest,
+      url: "api/users"
+    })
+    .then(function successCallBack(result){
+      console.log( "this user has been created", result);
+    })
+    .fail(function failCallBack(error){
+        console.log("the error for guest post",error );
+    });
 
 
+    // console.log($scope.guest.shoeType);
+    // $rootScope.currentUser = $scope.guest;
+    // console.log($scope.currentUser);
 
-    console.log($scope.guest.shoeType);
-    //$rootScope.currentUser = $scope.guest;
-    console.log($scope.currentUser);
-
-  }
+  };
 
   //signup scope
   $scope.signup = {};
