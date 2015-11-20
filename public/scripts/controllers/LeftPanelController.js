@@ -2,9 +2,11 @@ app.controller('LeftPanelController', ['$scope', '$rootScope', 'UserService', 'M
   $scope.lftPanel = {};
   $scope.lftPanel.users = UserService.getUsers(function(users) {
     console.log(users);
-    $scope.lftPanel.currentUser = $rootScope.currentUser; //users[0];
-    $rootScope.currentUser.mates;
-    //$scope.lftPanel.mates = MatesService.getMates(users, $scope.lftPanel.currentUser._id);
+    //$scope.currentUser = $rootScope.currentUser; //users[0];
+
+    // $scope.lftPanel.currentUser = $rootScope.currentUser; //users[0];
+    // $rootScope.currentUser.mates = Mates¬Service.get;
+   $scope.currentUser.mates = MatesService.getMates(users, $scope.currentUser._id);
 
   });
 }]);

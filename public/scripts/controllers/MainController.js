@@ -75,7 +75,6 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
         shoeType: $scope.guest.shoeType
     };
 
-
     $http({
       method: 'post',
       data: guest,
@@ -83,8 +82,10 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
     })
     .then(function successCallBack(result){
       console.log( "this user has been created", result);
-    })
-    .fail(function failCallBack(error){
+      console.log( "this user has been created", result.data);
+      $scope.currentUser = result.data;
+    },
+    function failCallBack(error){
         console.log("the error for guest post",error );
     });
 
@@ -109,12 +110,12 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
       leftFoot: $scope.signup.leftFoot,
       rightFoot: $scope.signup.rightFoot,
       shoeType: $scope.signup.shoeType
-    }
+    };
 
     UserService.save(newUser, function(user) {
       console.log(user);
       $rootScope.currentUser = user;
-      console.log("root scope: ", $rootScope.currentUser)
+      console.log("root scope: ", $rootScope.currentUser);
     });
 
     UserService.getUsers(function(users) {
@@ -122,7 +123,7 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
     });
 
     $scope.cancel();
-  }
+  };
 
   // Login In scope
   $scope.login = {};
@@ -142,8 +143,9 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
       UserByEmail.byEmail({
         email: loginUser.email
       }, function(data) {
-        //console.log(data);
-        $rootScope.currentUser = data;
+        console.log("the logged in user is :",data);
+       // $rootScope.currentUser = data;
+        $scope.currentUser = data;
 
         UserService.getUsers(function(users) {
           // users.forEach(function(user){

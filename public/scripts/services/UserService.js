@@ -103,13 +103,13 @@ app.factory('UserService', ['$resource', function($resource) {
               //matesWithShoeMatch.push(mate)
               //console.log("Im in here,", num)
             } else {
-              console.log("didn't find shoe Matches")
+              console.log("didn't find shoe Matches");
             }
           });
-        })
+        });
       });
       return num;
-    }
+    };
 
     factory.numShoeMatches2 = function(shoe) {
       //var num = 0;

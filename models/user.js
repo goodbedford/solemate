@@ -11,13 +11,13 @@ var ObjectId = Schema.Types.ObjectId;
 var UserSchema = new Schema({
   username: {
     type: String,
-    default: "",
-    required: true
+    required: true,
+    unique: true
   },
   email: {
     type: String,
-    default: "",
-    required: true
+    required: true,
+    unique: true
   },
   password: {
     type: String,

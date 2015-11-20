@@ -108,9 +108,11 @@ app.get('/api/users', function(req, res){
 //GET user by id
 app.get('/api/users/:id', function(req, res){
   var user_id = req.params.id;
-  User.findOne({_id: user_id}, function(err, foundUser){
-    res.json(foundUser);
-  });
+  User.findOne({_id: user_id})
+      .populate("mates")
+      .exec( function(err, foundUser){
+        res.json(foundUser);
+      });
 });
 
 //GET user by email
