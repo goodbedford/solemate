@@ -56,11 +56,11 @@ app.factory('ShoeService', [function() {
       shoeUrl: 'http://s1.shoes.com/images/br574/womens-wanted-simone-coral-490199_120_45.jpg',
       counter: 0
     }
-  ]
+  ];
   var factory = {};
   factory.getShoes = function() {
     return shoes;
-  }
+  };
   factory.getShoeById = function(id) {
     var foundShoe = null;
     shoes.forEach( function(shoe){
@@ -69,7 +69,7 @@ app.factory('ShoeService', [function() {
       }
     });
     return foundShoe;
-  }
+  };
 
   
   return factory;

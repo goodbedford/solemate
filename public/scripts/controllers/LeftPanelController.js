@@ -6,7 +6,7 @@ app.controller('LeftPanelController', ['$scope', '$rootScope', 'UserService', 'M
 
     // $scope.lftPanel.currentUser = $rootScope.currentUser; //users[0];
     // $rootScope.currentUser.mates = Mates¬Service.get;
-   $scope.currentUser.mates = MatesService.getMates(users, $scope.currentUser._id);
+   // $scope.currentUser.mates = MatesService.getMates(users, $scope.currentUser._id);
 
   });
 }]);

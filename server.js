@@ -118,10 +118,12 @@ app.get('/api/users/:id', function(req, res){
 //GET user by email
 app.get('/api/users/email/:email', function(req, res){
   var user_email = req.params.email;
-  User.findOne({email: user_email}, function(err, foundUser){
-    console.log("found by email", foundUser);
-    res.json(foundUser);
-  });
+  User.findOne({email: user_email})
+      .populate("mates")
+      .exec( function(err, foundUser){
+        console.log("found by email", foundUser);
+        res.json(foundUser);
+      });
 });
 
 //POST user
