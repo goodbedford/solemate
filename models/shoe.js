@@ -22,7 +22,7 @@ var ShoeSchema = new Schema({
     default: "",
     required: true
   },
-  type: {
+  color: {
     type: String,
     default: "",
     required: true

@@ -1,0 +1,43 @@
+[{
+  "name": "Delsie Stella",
+  "brand": "Clarks",
+  "price": 139.95,
+  "color": "black",
+  "shoeUrl": "http://s2.shoes.com/images/br013/womens-clarks-delsie-stella-black-leather-434645_200_45.jpg"
+}, {
+  "name": "Edell",
+  "brand": "Bandolino",
+  "price": 58.95,
+  "color": "black",
+  "shoeUrl": "http://s2.shoes.com/images/br291/womens-bandolino-edell-black-480015_200_45.jpg"
+}, {
+  "name": "Haven",
+  "brand": "Aerosoles",
+  "price": 57.99,
+  "color": "brown",
+  "shoeUrl": "http://s1.shoes.com/images/br023/womens-aerosoles-haven-taupe-combo-485752_120_45.jpg"
+}, {
+  "name": "Jessica Bohemia Slide",
+  "brand": "Frye",
+  "price": 183.99,
+  "color": "brown",
+  "shoeUrl": "http://s1.shoes.com/images/br065/womens-frye-jessica-bohemian-slide-brown-leather-454794_120_45.jpg"
+}, {
+  "name": "Gelata Fresca",
+  "brand": "Clarks",
+  "price": 139.95,
+  "color": "brown",
+  "shoeUrl": "http://s2.shoes.com/images/br013/womens-clarks-gelata-fresca-dark-tan-leather-434685_120_45.jpg"
+}, {
+  "name": "Estee",
+  "brand": "Trotters",
+  "price": 129.95,
+  "color": "purple",
+  "shoeUrl": "http://s2.shoes.com/images/br072/womens-trotters-estee-purple-suede-494139_120_45.jpg"
+}, {
+  "name": "Simone",
+  "brand": "Wanted",
+  "price": 39.95,
+  "color": "red",
+  "shoeUrl": "http://s1.shoes.com/images/br574/womens-wanted-simone-coral-490199_120_45.jpg"
+}]

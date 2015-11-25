@@ -1,0 +1,53 @@
+[{
+  "username" : "guest",
+  "password" : "password",
+  "email" : "guest@gmail.com",
+  "mates" : [ ],
+  "messages" : [ ],
+  "likes" : [ ],
+  "shoeType" : "w",
+  "leftFoot" : "5.5",
+  "rightFoot" : "5.0"
+},
+{
+  "username" : "beth",
+  "password" : "password",
+  "email" : "beth@gmail.com",
+  "mates" : [ ],
+  "messages" : [ ],
+  "likes" : [ ],
+  "shoeType" : "w",
+  "leftFoot" : "5.5",
+  "rightFoot" : "5.0"
+},{
+  "username" : "user1",
+  "password" : "password",
+  "email" : "user1@gmail.com",
+  "mates" : [ ],
+  "messages" : [ ],
+  "likes" : [ ],
+  "shoeType" : "w",
+  "leftFoot" : "5.0",
+  "rightFoot" : "5.5"
+},{
+  "username" : "raheem",
+  "password" : "password",
+  "email" : "raheem@gmail.com",
+  "mates" : [ ],
+  "messages" : [ ],
+  "likes" : [ ],
+  "shoeType" : "w",
+  "leftFoot" : "5.0",
+  "rightFoot" : "5.5"
+},
+{
+  "username" : "Cat",
+  "password" : "password",
+  "email" : "cat@gmail.com",
+  "mates" : [ ],
+  "messages" : [ ],
+  "likes" : [ ],
+  "shoeType" : "w",
+  "leftFoot" : "5.5",
+  "rightFoot" : "5.0"
+}]

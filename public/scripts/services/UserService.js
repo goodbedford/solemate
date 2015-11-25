@@ -25,31 +25,34 @@ app.factory('UserService', ['$resource', function($resource) {
       newUser = {};
     };
 
-    factory.addMates = function(users) {
-      //console.log("currenUser in before :", $rootScope.currentUser.mates)
+    factory.addMates = function(currentUser, users) {
+      //for each user if feet are opposite
+      // push user._id into currentUser mates
       users.forEach(function(user) {
-        if (user.leftFoot == $rootScope.currentUser.rightFoot &&
-          user.rightFoot == $rootScope.currentUser.leftFoot) {
-          $rootScope.displayMates.push(user);
-          if ($rootScope.currentUser.mates.indexOf(user._id) < 0) {
-            $rootScope.currentUser.mates.push(user._id);
-            console.log("this is current user in addMates", $rootScope.currentUser.mates);
-              // console.log("user to:", user)
-            UserService.update({
-              id: $rootScope.currentUser._id
-            }, $rootScope.currentUser, function(updatedUser) {
-              console.log("updated user:", updatedUser);
-            });
+        if (user.leftFoot == currentUser.rightFoot && user.rightFoot == currentUser.leftFoot) {
+              currentUser.mates.push(user._id);
+              console.log("currentUser to:", currentUser);
           }
-        }
       });
+      UserService.update({
+        id: currentUser._id
+      }, currentUser, function(updatedUser) {
+        console.log("updated user:", updatedUser);
+      });
+      UserService.getUserById({id: currentUser._id} ,function(user){
+      currentUser = user;
+      console.log("user in addMates:", user);
+      console.log("curren user in addMates:", currentUser);
+
+      });
+
     };
 
     //searches 
-    factory.getMates = function(users, currentId) {
+    factory.getMates = function(currentId, users) {
       var mates = [];
       users.forEach(function(user) {
-        if (user.id == currentId) {
+        if (user._id == currentId) {
           user.mates.forEach(function(mate) {
             var foundMate = UserService.getUserById(mate);
             mates.push(foundMate);
@@ -59,22 +62,14 @@ app.factory('UserService', ['$resource', function($resource) {
       return mates;
     };
 
-    factory.numShoeMatches = function(shoeId) {
+    factory.numShoeMatchById = function(currentUser, shoeId) {
       //var num = 0;
       var matesWithShoeMatch = [];
-      var mates = [];
-      // $rootScope.currentUser.mates.forEach(function(mateId) {
-      //   var foundMate = UserService.getUserById(mateId);
-      //   mates.push(foundMate)
-      // });
-      // console.log("mates", mates)
-      $rootScope.displayMates.forEach(function(mate) {
+      currentUser.mates.forEach(function(mate) {
         //console.log("mate likes:", mate)
         mate.likes.forEach(function(shoe_id) {
           if (shoeId == shoe_id) {
-            //num += 1;
             matesWithShoeMatch.push(mate);
-              //console.log("Im in here,", num)
           } else {
             console.log("didn't find shoe Matches");
           }
@@ -82,35 +77,27 @@ app.factory('UserService', ['$resource', function($resource) {
       });
       return matesWithShoeMatch;
     };
-    factory.numShoeMatchesAll = function(shoes) {
-      var num = 0;
+    factory.numShoeMatchesAll = function(currentUser, shoes) {
+      console.log("currentUser all:", currentUser);
+      console.log("shoes :", shoes);
       var matesWithShoeMatch = [];
-      var mates = [];
-      // currentUser.mates.forEach(function(mateId) {
-      //   var foundMate = UserService.getUserById({id:mateId}, function(user){
-      //     mates.push(user)
-      //   });
+      currentUser.mates.forEach(function(mate){
 
-      // });
-      // console.log("mates", mates)
-      $rootScope.displayMates.forEach(function(mate) {
-        //console.log("mate likes:", mate)
-        shoes.forEach(function(shoe) {
-
-          mate.likes.forEach(function(shoe_id) {
-            if (shoe.id == shoe_id) {
-              num += 1;
-              //matesWithShoeMatch.push(mate)
-              //console.log("Im in here,", num)
-            } else {
-              console.log("didn't find shoe Matches");
+        currentUser.likes.forEach(function(currentUserShoe){
+          console.log("currentUserShoe:",currentUserShoe);
+          mate.likes.forEach(function(mateShoe){
+            console.log("mateShoe:", mateShoe);
+            if(mateShoe == currentUserShoe){
+              matesWithShoeMatch.push(mateShoe);
+              console.log("pushed mateShoe", mateShoe);
             }
           });
         });
       });
-      return num;
+      console.log("num of shoe matches:", matesWithShoeMatch.length);
+      return matesWithShoeMatch;
     };
-
+    
     factory.numShoeMatches2 = function(shoe) {
       //var num = 0;
       console.log("clicked numShoeMatches2");
@@ -122,14 +109,14 @@ app.factory('UserService', ['$resource', function($resource) {
       // });
       // console.log("mates", mates)
       $rootScope.displayMates.forEach(function(mate) {
-        console.log("mate likes:", mate)
+        console.log("mate likes:", mate);
         mate.likes.forEach(function(shoe_id) {
           if (shoe.id == shoe_id) {
             //num += 1;
-            matesWithShoeMatch.push(mate)
+            matesWithShoeMatch.push(mate);
               //console.log("Im in here,", num)
           } else {
-            console.log("didn't find shoe Matches2")
+            console.log("didn't find shoe Matches2");
           }
         });
       });
@@ -137,25 +124,40 @@ app.factory('UserService', ['$resource', function($resource) {
         mates: matesWithShoeMatch,
         shoe: shoe.shoeUrl
       };
-      console.log("shoe panel:", shoePanel)
+      console.log("shoe panel:", shoePanel);
       return shoePanel;
-    }
+    };
 
     factory.test = function(shoeId) {
       return shoeId;
-    }
+    };
 
-    factory.addTolikes = function(shoeId) {
-      console.log("clicked");
-      if ($rootScope.currentUser.likes.indexOf(shoeId) < 0) {
-        $rootScope.currentUser.likes.push(shoeId)
-        console.log("user likes after:", $rootScope.currentUser.likes)
+    factory.addToLikes = function(currentUser, shoeId) {
+       console.log("clicked");
+       console.log("shoeId:", shoeId);
+       console.log("current user", currentUser);
+      if (currentUser.likes.indexOf(shoeId) < 0) {
+        currentUser.likes.push(shoeId);
+        console.log("user likes after:", currentUser.likes);
       } else {
-        var index = $rootScope.currentUser.likes.indexOf(shoeId);
-        $rootScope.currentUser.likes.splice(index, 1);
-        console.log("user likes else::", $rootScope.currentUser.likes)
+        var index = currentUser.likes.indexOf(shoeId);
+        currentUser.likes.splice(index, 1);
+        console.log("user likes else::", currentUser.likes);
       }
-    }
+      UserService.update({_id: currentUser._id},currentUser, function(data){
+          console.log("this person was updated", data);
+      });
+    };
+
+    factory.isLiked = function(currentUser, shoeId){
+      var isLiked = false;
+      if (currentUser.likes.indexOf(shoeId) < 0) {
+          isLiked = false;
+      } else {
+          isLiked = true;
+      }
+      return isLiked;
+    };
 
     return factory;
   }]);

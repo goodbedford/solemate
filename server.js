@@ -160,6 +160,7 @@ app.put('/api/users/:id', function(req, res){
   User.findOne({_id: user_id}, function(err, foundUser){
     //foundUser = req.body;
     //console.log("response from update user", foundUser)
+    console.log("the put req.body is:", req.body);
   
     foundUser.username =  req.body.username;
     foundUser.email = req.body.email;
@@ -170,7 +171,9 @@ app.put('/api/users/:id', function(req, res){
     foundUser.likes = req.body.likes;
     foundUser.messages = req.body.messages;
     foundUser.mates = req.body.mates;
+    console.log("the updated foundUser:", foundUser);
     foundUser.save(function(err, savedUser){
+      console.log("the saved updated user:", savedUser);
       res.json(savedUser);
     });
   });
@@ -231,5 +234,5 @@ app.get('*', function (req, res) {
 });
 //listen on port 3000
 app.listen(process.env.PORT || 3000, function() {
-  console.log('server started on localhost:3000')
+  console.log('server started on localhost:3000');
 });

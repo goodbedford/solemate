@@ -1,11 +1,10 @@
-app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 'UserService', 'MatesService', function($scope, $rootScope, $resource, $http, UserService, MatesService) {
+app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 'UserService', 'MatesService', 'ShoeService', function($scope, $rootScope, $resource, $http, UserService, MatesService, ShoeService) {
   $scope.isCollapsed = true;
   $scope.showMiniSplash = function() {
     $scope.miniSplash = true;
   };
 
   $scope.main = {};
-  $scope.main.test = "testing";
   $scope.main.matesShoePanel = {};
   $scope.main.showMatesShowPanel = false;
   //modal show or hide
@@ -13,6 +12,24 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
   $scope.showLoginForm = false;
   $scope.showSignUpForm = false;
   $scope.showGuestLoginForm = true;
+
+  // display matching shoe count
+  $scope.perPage= 20;
+
+
+
+  //add hearts to shoes
+  $scope.likeShoe = false;
+  $scope.numShoeMatchesAll = [];
+  $scope.isLiked = MatesService.isLiked;
+
+
+  function setShoes (){
+    $scope.shoes = ShoeService.query();
+    $scope.numShoeMatchesAll = MatesService.numShoeMatchesAll($scope.currentUser, $scope.shoes );
+    $scope.numShoeMatchById  = MatesService.numShoeMatchById;
+    $scope.addToLikes = MatesService.addToLikes;      
+  }
 
   //open modal
   // $scope.open = function() {
@@ -58,10 +75,10 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
   };
 
   //root scope
-  $rootScope.currentUser = {};
-  $rootScope.currentUser.mates = [];
-  $rootScope.currentUser.likes = [];
-  $rootScope.displayMates = [];
+  // $rootScope.currentUser = {};
+  // $rootScope.currentUser.mates = [];
+  // $rootScope.currentUser.likes = [];
+  // $rootScope.displayMates = [];
 
 
   //submit $scope.guest
@@ -104,22 +121,22 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
 
   $scope.submitSignUpForm = function() {
     var newUser = {
-      username: $scope.signup.username,
-      email: $scope.signup.email,
-      password: $scope.signup.password,
-      leftFoot: $scope.signup.leftFoot,
-      rightFoot: $scope.signup.rightFoot,
-      shoeType: $scope.signup.shoeType
+        username: $scope.signup.username,
+        email: $scope.signup.email,
+        password: $scope.signup.password,
+        leftFoot: $scope.signup.leftFoot,
+        rightFoot: $scope.signup.rightFoot,
+        shoeType: $scope.signup.shoeType
     };
 
     UserService.save(newUser, function(user) {
       console.log(user);
-      $rootScope.currentUser = user;
-      console.log("root scope: ", $rootScope.currentUser);
+      $scope.currentUser = user;
+      console.log("scope: ", $scope.currentUser);
     });
 
     UserService.getUsers(function(users) {
-      MatesService.addMates(users);
+      MatesService.addMates($scope.currentUser, users);
     });
 
     $scope.cancel();
@@ -143,11 +160,13 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
       UserByEmail.byEmail({
         email: loginUser.email
       }, function(data) {
-        console.log("the logged in user is :",data);
+        //console.log("the logged in user is :",data);
        // $rootScope.currentUser = data;
         $scope.currentUser = data;
+          setShoes();
+          console.log("just logged in:" , $scope.currentUser);
 
-        UserService.getUsers(function(users) {
+        // UserService.getUsers(function(users) {
           // users.forEach(function(user){
           //   if( user.leftFoot == $rootScope.currentUser.rightFoot &&
           //       user.rightFoot == $rootScope.currentUser.leftFoot){
@@ -161,11 +180,9 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
           //      });
           //   }
           // });
-          MatesService.addMates(users);
-        });
+          //MatesService.getMates($scope.currentUser._id, users);
+        // }); 
       });
       $scope.cancel();
-    }
-    // $scope.main.matesShoePanel;
-
+    };
 }]);
