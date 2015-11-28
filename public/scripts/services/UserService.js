@@ -7,11 +7,11 @@ app.factory('UserService', ['$resource', function($resource) {
       update: {
         method: 'PUT'
       },
-      getUsers: {
+      query: {
         method: 'GET',
         isArray: true
       },
-      getUserById: {
+      get: {
         method: 'GET',
         isArray: false
       }
@@ -20,33 +20,68 @@ app.factory('UserService', ['$resource', function($resource) {
   .factory('MatesService', ['$rootScope', 'UserService', function($rootScope, UserService) {
     var factory = {};
 
-
+    factory.findById = function(source, id) {
+      return source.filter(function( obj ) {
+          // coerce both obj.id and id to numbers 
+          // for val & type comparison
+          return obj._id === id;
+      })[ 0 ];
+    };
     factory.addUser = function() {
       newUser = {};
     };
 
-    factory.addMates = function(currentUser, users) {
+    factory.addMates = function(currentUser, users, str) {
       //for each user if feet are opposite
-      // push user._id into currentUser mates
-      users.forEach(function(user) {
-        if (user.leftFoot == currentUser.rightFoot && user.rightFoot == currentUser.leftFoot) {
-              currentUser.mates.push(user._id);
-              console.log("currentUser to:", currentUser);
+      // push user._id into currentUser mateShoe
+      var foundMate;      
+      if( str === "id"){
+        console.log("the currentUser in addMates:", currentUser);
+        users.forEach(function(user) {
+          if( currentUser.mates.indexOf(user._id ) < 0 ){
+              console.log("inside addmatess user._id:", user._id);
+              console.log("inside addmates user:", user); 
+              debugger;
+            if (user.leftFoot == currentUser.rightFoot && user.rightFoot == currentUser.leftFoot) {
+                  currentUser.mates.push(user._id);
+                  console.log("user._id", user._id);
+                  console.log("currentUser to:", currentUser);
+            }
           }
-      });
-      UserService.update({
-        id: currentUser._id
-      }, currentUser, function(updatedUser) {
-        console.log("updated user:", updatedUser);
-      });
-      UserService.getUserById({id: currentUser._id} ,function(user){
-      currentUser = user;
-      console.log("user in addMates:", user);
-      console.log("curren user in addMates:", currentUser);
+        });
+        UserService.update({
+          id: currentUser._id
+        }, currentUser, function(updatedUser) {
+          console.log("updated user:", updatedUser);
+        });
+        } else if ( str === "obj"){
+          console.log("the obj currentUser in addMates:", currentUser);
+          users.forEach(function(user) {
+              if (user.leftFoot == currentUser.rightFoot && user.rightFoot == currentUser.leftFoot) {
+                
+                foundMate = factory.findById(currentUser.mates, user._id);
+                if( foundMate){
 
-      });
-
-    };
+                    console.log("user:",user,"already in currentUser.mates");
+                } else{
+                    currentUser.mates.push(user);
+                    console.log("user._id", user._id);
+                    console.log("currentUser:", currentUser.mates); 
+                }
+              debugger;
+              } else{
+                console.log("shoes size don't match user:", user);
+              }
+          });
+          UserService.update({
+            id: currentUser._id
+          }, currentUser, function(updatedUser) {
+            console.log("updated user:", updatedUser);
+          });
+        } else {
+          console.log("error");
+        }
+      };
 
     //searches 
     factory.getMates = function(currentId, users) {
@@ -54,7 +89,7 @@ app.factory('UserService', ['$resource', function($resource) {
       users.forEach(function(user) {
         if (user._id == currentId) {
           user.mates.forEach(function(mate) {
-            var foundMate = UserService.getUserById(mate);
+            var foundMate = UserService.get(mate);
             mates.push(foundMate);
           });
         }
@@ -104,7 +139,7 @@ app.factory('UserService', ['$resource', function($resource) {
       var shoePanel = {};
       var matesWithShoeMatch = [];
       // currentUser.mates.forEach(function(mateId) {
-      //   var foundMate = UserService.getUserById(mateId);
+      //   var foundMate = UserService.get(mateId);
       //   mates.push(foundMate)
       // });
       // console.log("mates", mates)

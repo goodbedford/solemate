@@ -1,8 +1,13 @@
 app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', '$modal', 'UserService', 'MatesService', 'ShoeService', function($scope, $rootScope, $resource, $http, $modal, UserService, MatesService, ShoeService) {
+  
   $scope.isCollapsed = true;
   $scope.showMiniSplash = function() {
     $scope.miniSplash = true;
   };
+
+  // $scope.main = {};
+  // $scope.main.matesShoePanel = {};
+  // $scope.main.showMatesShowPanel = false;
 
   //modal show or hide
   $scope.showLoginModal = true;
@@ -13,8 +18,7 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
   // display matching shoe count
   $scope.perPage= 20;
 
-  // Login In scope
-  $scope.login = {};
+
 
   //add hearts to shoes
   $scope.likeShoe = false;
@@ -22,66 +26,21 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
   $scope.isLiked = MatesService.isLiked;
 
 
-  function loadShoes(){
-    $scope.shoes = ShoeService.query();
-    console.log("scope shoes 1:", $scope.shoes);
-
-  }
-
   function setShoes (){
-    loadShoes();
-    console.log("scope shoes 2:", $scope.shoes);
-
+    $scope.shoes = ShoeService.query();
     $scope.numShoeMatchesAll = MatesService.numShoeMatchesAll($scope.currentUser, $scope.shoes );
     $scope.numShoeMatchById  = MatesService.numShoeMatchById;
     $scope.addToLikes = MatesService.addToLikes;      
   }
 
-  //addUser
-  function addUser(newUser){
-    $scope.currentUser = UserService.save(newUser, function(user) {});
-  }
-  //loadUsers
-  function loadUsers(){
-    $scope.users = UserService.query();
-    console.log($scope.users);
-  } 
-
-  function loadMates(){
-    MatesService.addMates($scope.currentUser, $scope.users);
-  }
-
-  function startInit(newUser){
-    UserService.save(newUser, function successCallBack(user){
-      $scope.currentUser = user;
-    });
-    UserService.query(function successCallBack(users){
-      $scope.users = users;
-      MatesService.addMates($scope.currentUser, $scope.users, "id");
-      UserService.get({id: $scope.currentUser._id}, function(user){
-        $scope.currentUser = user;
-      });
-    });
-    ShoeService.query(function(shoes){
-      $scope.shoes = shoes;
-    });
-  }
-
-  function startLoginInit(){
-    UserService.query(function successCallBack(users){
-      $scope.users = users;
-      MatesService.addMates($scope.currentUser, $scope.users, "obj");
-      UserService.get({id: $scope.currentUser._id}, function(user){
-        $scope.currentUser = user;
-        debugger;
-      });
-    });
-    ShoeService.query(function(shoes){
-      $scope.shoes = shoes;
-      console.log("getting shoes scope", $scope.shoes);
-    });
-  }
-
+  //open modal
+  // $scope.open = function() {
+  //     $scope.showLoginModal = true;
+  //     $scope.showLoginForm = true;
+  //     $scope.showSignUpForm = false;
+  //     $scope.showGuestLoginForm = false;
+  //   };
+    //close modal
   $scope.cancel = function() {
       $scope.guest = {};
 
@@ -89,13 +48,39 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
       $scope.showLoginForm = false;
       $scope.showSignUpForm = false;
       $scope.showLoginModal = false;
-    };
 
+      //you don't need these conditionals
+      // if ($scope.showGuestLoginForm == true) {
+      //   $scope.showGuestLoginForm = false;
+      //   $scope.showSignUpForm = false;
+      //   $scope.showLoginModal = false;
+
+      // } else if ($scope.showLoginForm == true) {
+      //   $scope.showLoginForm = false;
+      //   $scope.showGuestLoginForm = false;
+      //   $scope.showSignUpForm = false;
+      //   $scope.showLoginModal = false;
+
+      // } else {
+      //   $scope.showSignUpForm = false;
+      //   $scope.showGuestLoginForm = false;
+      //   $scope.showLoginForm = false;
+
+      //   $scope.showLoginModal = false;
+
+      // }
+    };
   //guest
   $scope.guest = {};
   $scope.guest = {
     shoeType: "w"
   };
+
+  //root scope
+  // $rootScope.currentUser = {};
+  // $rootScope.currentUser.mates = [];
+  // $rootScope.currentUser.likes = [];
+  // $rootScope.displayMates = [];
 
 
   //submit $scope.guest
@@ -118,10 +103,15 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
       console.log( "this user has been created", result);
       console.log( "this user has been created", result.data);
       $scope.currentUser = result.data;
-    })
-    .throw(function failCallBack(error){
+    },
+    function failCallBack(error){
         console.log("the error for guest post",error );
     });
+
+
+    // console.log($scope.guest.shoeType);
+    // $rootScope.currentUser = $scope.guest;
+    // console.log($scope.currentUser);
 
   };
 
@@ -140,10 +130,22 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
         rightFoot: $scope.signup.rightFoot,
         shoeType: $scope.signup.shoeType
     };
-    startInit(newUser);
+
+    $scope.currentUser = UserService.save(newUser, function(user) {
+      console.log(user);
+      // $scope.currentUser = user;
+      // console.log("scope: ", $scope.currentUser);
+    });
+
+    var users = UserService.getUsers(function(users) {});
+
+    MatesService.addMates($scope.currentUser, users);
+    setShoes();
     $scope.cancel();
   };
 
+  // Login In scope
+  $scope.login = {};
   $scope.submitLoginForm = function() {
       var loginUser = {
         email: $scope.login.email,
@@ -163,8 +165,25 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
         //console.log("the logged in user is :",data);
        // $rootScope.currentUser = data;
         $scope.currentUser = data;
+          setShoes();
           console.log("just logged in:" , $scope.currentUser);
-          startLoginInit();
+
+        // UserService.getUsers(function(users) {
+          // users.forEach(function(user){
+          //   if( user.leftFoot == $rootScope.currentUser.rightFoot &&
+          //       user.rightFoot == $rootScope.currentUser.leftFoot){
+          //     //console.log("this is current user before addMates", $rootScope.currentUser.mates)
+
+          //     $rootScope.currentUser.mates.push(user._id);
+          //     console.log("this is current user in addMates", $rootScope.currentUser)
+          //     // console.log("user to:", user)
+          //      UserService.update({id: $rootScope.currentUser._id},$rootScope.currentUser, function(updatedUser){
+          //      console.log("updated user:",updatedUser);
+          //      });
+          //   }
+          // });
+          //MatesService.getMates($scope.currentUser._id, users);
+        // }); 
       });
       $scope.cancel();
     };

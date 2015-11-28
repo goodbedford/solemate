@@ -5,11 +5,11 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
   $routeProvider
     .when('/', {
       templateUrl: 'views/templates/home.html',
-      controller: 'HomeController'
+      controller: 'MainController'
     })
     .when('/api/shoes', {
       templateUrl: 'views/templates/home.html',
-      controller: 'HomeController'
+      controller: 'MainController'
     })
     .otherwise({
       redirectTo: '/'
