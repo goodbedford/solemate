@@ -21,13 +21,6 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
   $scope.numShoeMatchesAll = [];
   $scope.isLiked = MatesService.isLiked;
 
-
-  function loadShoes(){
-    $scope.shoes = ShoeService.query();
-    console.log("scope shoes 1:", $scope.shoes);
-
-  }
-
   function setShoes (){
     loadShoes();
     console.log("scope shoes 2:", $scope.shoes);
@@ -37,50 +30,97 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
     $scope.addToLikes = MatesService.addToLikes;      
   }
 
-  //addUser
-  function addUser(newUser){
-    $scope.currentUser = UserService.save(newUser, function(user) {});
-  }
-  //loadUsers
-  function loadUsers(){
-    $scope.users = UserService.query();
-    console.log($scope.users);
-  } 
 
-  function loadMates(){
-    MatesService.addMates($scope.currentUser, $scope.users);
-  }
+  // function startInit(newUser){
+  //   UserService.save(newUser, function successCallBack(user){
+  //     $scope.currentUser = user;
+  //   });
+  //   UserService.query(function successCallBack(users){
+  //     $scope.users = users;
+  //     MatesService.addMates($scope.currentUser, $scope.users, "id");
+  //     UserService.get({id: $scope.currentUser._id}, function(user){
+  //       $scope.currentUser = user;
+  //     });
+  //   });
+  //   ShoeService.query(function successCallBack(shoes){
+  //     $scope.shoes = shoes;
 
+  //   });
+  // }
+  // function startLoginInit(){
+  //   UserService.query(function successCallBack(users){
+  //     $scope.users = users;
+  //     MatesService.addMates($scope.currentUser, $scope.users, "obj");
+  //     UserService.get({id: $scope.currentUser._id}, function(user){
+  //       $scope.currentUser = user;
+  //     });
+  //   });
+  //   ShoeService.query(function(shoes){
+  //     $scope.shoes = shoes;
+  //     console.log("getting shoes scope", $scope.shoes);
+  //     $scope.numShoeMatchesAll = MatesService.numShoeMatchesAll($scope.currentUser, $scope.shoes );
+  //     $scope.numShoeMatchById  = MatesService.numShoeMatchById;
+  //     $scope.addToLikes = MatesService.addToLikes;      
+  //     debugger;
+  //   });
+  // }
   function startInit(newUser){
-    UserService.save(newUser, function successCallBack(user){
+    UserService.save(newUser)
+    .$promise
+    .then(function(user){
       $scope.currentUser = user;
-    });
-    UserService.query(function successCallBack(users){
-      $scope.users = users;
-      MatesService.addMates($scope.currentUser, $scope.users, "id");
-      UserService.get({id: $scope.currentUser._id}, function(user){
-        $scope.currentUser = user;
+    })
+    .then(function(){
+      UserService.query()
+      .$promise
+      .then(function(users){
+        $scope.users= users;
+      })
+      .then(function(){
+        MatesService.addMates($scope.currentUser, $scope.users, "id");
+        UserService.get({id: $scope.currentUser._id})
+        .$promise
+        .then(function(user){
+          $scope.currentUser = user;
+        });
       });
     });
-    ShoeService.query(function(shoes){
+    ShoeService.query(function successCallBack(shoes){
       $scope.shoes = shoes;
+
     });
   }
 
   function startLoginInit(){
-    UserService.query(function successCallBack(users){
+    UserService.query()
+    .$promise
+    .then(function(users){
       $scope.users = users;
+    })
+    .then(function(){
       MatesService.addMates($scope.currentUser, $scope.users, "obj");
-      UserService.get({id: $scope.currentUser._id}, function(user){
+      UserService.get({id: $scope.currentUser._id})
+      .$promise
+      .then(function(user){
         $scope.currentUser = user;
-        debugger;
       });
     });
-    ShoeService.query(function(shoes){
+    ShoeService.query()
+    .$promise
+    .then(function(shoes){
       $scope.shoes = shoes;
-      console.log("getting shoes scope", $scope.shoes);
+    })
+    .then(function(){
+      $scope.numShoeMatchesAll = MatesService.numShoeMatchesAll($scope.currentUser, $scope.shoes );
+    })
+    .then(function(){
+      $scope.numShoeMatchById  = MatesService.numShoeMatchById;
+    })
+    .then(function(){
+      $scope.addToLikes = MatesService.addToLikes;      
     });
   }
+
 
   $scope.cancel = function() {
       $scope.guest = {};
@@ -157,15 +197,24 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
         }
       });
 
-      UserByEmail.byEmail({
-        email: loginUser.email
-      }, function(data) {
-        //console.log("the logged in user is :",data);
-       // $rootScope.currentUser = data;
-        $scope.currentUser = data;
-          console.log("just logged in:" , $scope.currentUser);
-          startLoginInit();
+      UserByEmail.byEmail({email: loginUser.email})
+      .$promise
+      .then(function(user){
+        $scope.currentUser = user;
+        console.log("just logged in as:", $scope.currentUser);
+      })
+      .then(function(){
+        startLoginInit();
       });
+      // UserByEmail.byEmail({
+      //   email: loginUser.email
+      // }, function(data) {
+      //   //console.log("the logged in user is :",data);
+      //  // $rootScope.currentUser = data;
+      //   $scope.currentUser = data;
+      //     console.log("just logged in:" , $scope.currentUser);
+      //     startLoginInit();
+      // });
       $scope.cancel();
     };
 }]);

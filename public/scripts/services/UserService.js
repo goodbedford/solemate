@@ -24,7 +24,7 @@ app.factory('UserService', ['$resource', function($resource) {
       return source.filter(function( obj ) {
           // coerce both obj.id and id to numbers 
           // for val & type comparison
-          return obj._id === id;
+          return obj._id == id;
       })[ 0 ];
     };
     factory.addUser = function() {
@@ -36,17 +36,17 @@ app.factory('UserService', ['$resource', function($resource) {
       // push user._id into currentUser mateShoe
       var foundMate;      
       if( str === "id"){
-        console.log("the currentUser in addMates:", currentUser);
         users.forEach(function(user) {
+        // console.log("the currentUser in addMates:", currentUser);
+        // console.log("the user in users:", user);
           if( currentUser.mates.indexOf(user._id ) < 0 ){
               console.log("inside addmatess user._id:", user._id);
               console.log("inside addmates user:", user); 
-              debugger;
             if (user.leftFoot == currentUser.rightFoot && user.rightFoot == currentUser.leftFoot) {
                   currentUser.mates.push(user._id);
                   console.log("user._id", user._id);
                   console.log("currentUser to:", currentUser);
-            }
+            } 
           }
         });
         UserService.update({
@@ -57,18 +57,18 @@ app.factory('UserService', ['$resource', function($resource) {
         } else if ( str === "obj"){
           console.log("the obj currentUser in addMates:", currentUser);
           users.forEach(function(user) {
+              //check if users shoe matches
               if (user.leftFoot == currentUser.rightFoot && user.rightFoot == currentUser.leftFoot) {
-                
+                //check if user is in current user mates array
                 foundMate = factory.findById(currentUser.mates, user._id);
                 if( foundMate){
-
                     console.log("user:",user,"already in currentUser.mates");
-                } else{
-                    currentUser.mates.push(user);
-                    console.log("user._id", user._id);
-                    console.log("currentUser:", currentUser.mates); 
+                } else {
+                  //push user into current user mates matches array
+                  currentUser.mates.push(user);
+                  console.log("user._id", user._id);
+                  console.log("currentUser:", currentUser.mates); 
                 }
-              debugger;
               } else{
                 console.log("shoes size don't match user:", user);
               }
@@ -130,6 +130,7 @@ app.factory('UserService', ['$resource', function($resource) {
         });
       });
       console.log("num of shoe matches:", matesWithShoeMatch.length);
+      debugger;
       return matesWithShoeMatch;
     };
     
@@ -171,6 +172,7 @@ app.factory('UserService', ['$resource', function($resource) {
        console.log("clicked");
        console.log("shoeId:", shoeId);
        console.log("current user", currentUser);
+       debugger;
       if (currentUser.likes.indexOf(shoeId) < 0) {
         currentUser.likes.push(shoeId);
         console.log("user likes after:", currentUser.likes);

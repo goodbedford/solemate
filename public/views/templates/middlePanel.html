@@ -16,7 +16,7 @@
           <h5><span class="bdr-dotted">{{shoe.name}}</span></h5>
           <p>{{shoe.price | currency}}</p>
           <div class="likeShoe">
-            <a ng-href="javascript:void(0)" ng-click="addToLikes(currentUser, shoe._id)">
+            <a ng-href="javascript:void(0)" ng-click="addToLikes(currentUser, shoe._id);">
               <span class="glyphicon glyphicon-heart" ng-show="!isLiked(currentUser, shoe._id)"></span>
               <span class="glyphicon glyphicon-heart colored" ng-show="isLiked(currentUser, shoe._id)"></span>
               <!-- i want to check each time submit a shoe -->
