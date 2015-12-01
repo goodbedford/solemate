@@ -118,13 +118,13 @@ app.factory('UserService', ['$resource', function($resource) {
       var matesWithShoeMatch = [];
       currentUser.mates.forEach(function(mate){
 
-        currentUser.likes.forEach(function(currentUserShoe){
-          console.log("currentUserShoe:",currentUserShoe);
-          mate.likes.forEach(function(mateShoe){
-            console.log("mateShoe:", mateShoe);
-            if(mateShoe == currentUserShoe){
-              matesWithShoeMatch.push(mateShoe);
-              console.log("pushed mateShoe", mateShoe);
+        currentUser.likes.forEach(function(currentUserShoeId){
+          console.log("currentUserShoeId:",currentUserShoeId);
+          mate.likes.forEach(function(mateShoeId){
+            console.log("mateShoeId:", mateShoeId);
+            if(mateShoeId == currentUserShoeId){
+              matesWithShoeMatch.push(mate);
+              console.log("pushed mate", mate);
             }
           });
         });
@@ -134,39 +134,50 @@ app.factory('UserService', ['$resource', function($resource) {
       return matesWithShoeMatch;
     };
     
-    factory.numShoeMatches2 = function(shoe) {
-      //var num = 0;
-      console.log("clicked numShoeMatches2");
-      var shoePanel = {};
-      var matesWithShoeMatch = [];
-      // currentUser.mates.forEach(function(mateId) {
-      //   var foundMate = UserService.get(mateId);
-      //   mates.push(foundMate)
-      // });
-      // console.log("mates", mates)
-      $rootScope.displayMates.forEach(function(mate) {
-        console.log("mate likes:", mate);
-        mate.likes.forEach(function(shoe_id) {
-          if (shoe.id == shoe_id) {
-            //num += 1;
-            matesWithShoeMatch.push(mate);
-              //console.log("Im in here,", num)
-          } else {
-            console.log("didn't find shoe Matches2");
-          }
-        });
-      });
-      shoePanel = {
-        mates: matesWithShoeMatch,
-        shoe: shoe.shoeUrl
-      };
-      console.log("shoe panel:", shoePanel);
-      return shoePanel;
-    };
+    factory.matchesPerShoe = function(matesWithShoeMatches, shoeId){
+      var matesPerShoe = [];
+      var index;
+      matesWithShoeMatches.forEach(function(mate){
+        index = mate.likes.indexOf(shoeId);
+        console.log("the mate likes", mate.likes);
+        console.log("the shoeId", shoeId);
 
-    factory.test = function(shoeId) {
-      return shoeId;
+        if( index >= 0) {
+          console.log("the matePerShoe",matesPerShoe);
+          matesPerShoe.push(mate);
+          console.log("the mates PerShoe", matesPerShoe);
+        }
+      });
+      return matesPerShoe;
     };
+    // factory.numShoeMatches2 = function(shoe) {
+    //   //var num = 0;
+    //   console.log("clicked numShoeMatches2");
+    //   var shoePanel = {};
+    //   var matesWithShoeMatch = [];
+    //   // currentUser.mates.forEach(function(mateId) {
+    //   //   var foundMate = UserService.get(mateId);
+    //   //   mates.push(foundMate)
+    //   // });
+    //   // console.log("mates", mates)
+    //   $rootScope.displayMates.forEach(function(mate) {
+    //     console.log("mate likes:", mate);
+    //     mate.likes.forEach(function(shoe_id) {
+    //       if (shoe.id == shoe_id) {
+    //         //num += 1;
+    //         matesWithShoeMatch.push(mate);
+    //           //console.log("Im in here,", num)
+    //       } else {
+    //         console.log("didn't find shoe Matches2");
+    //       }
+    //     });
+    //   shoePanel = {
+    //     mates: matesWithShoeMatch,
+    //     shoe: shoe.shoeUrl
+    //   };
+    //   console.log("shoe panel:", shoePanel);
+    //   return shoePanel;
+    // };
 
     factory.addToLikes = function(currentUser, shoeId) {
        console.log("clicked");

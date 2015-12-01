@@ -7,7 +7,7 @@
       <div class="text-right pad-1em hr-bar02">
         <!-- <div ng-click="$scope.main.test = mdlPanel.numShoeMatches2(mdlPanel.currentUser, shoe); getArr2()">click</div> -->
         <!--         <a ng-href="javascript:void(0)" ng-click="main.matesShoePanel = mdlPanel.numShoeMatches2( shoe);$event.stopPropagation()">{{(mdlPanel.numShoeMatches(shoe.id) ).length}} Mates -->
-        <a ng-href="javascript:void(0)" ng-click="main.matesShoePanel = mdlPanel.numShoeMatches2(shoe.id) ;$event.stopPropagation()">{{numShoeMatchById(currentUser, shoe.id).length}} Mates</a>
+        <a ng-href="javascript:void(0)" ng-click="showMatchPerShoe(numShoeMatchesAll, shoe._id); $event.stopPropagation()">{{matchesPerShoe(numShoeMatchesAll, shoe._id).length}} Mates</a>
       </div>
       <!-- caption panel -->
       <div class="row text-center">

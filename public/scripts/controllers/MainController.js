@@ -114,13 +114,19 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
       $scope.numShoeMatchesAll = MatesService.numShoeMatchesAll($scope.currentUser, $scope.shoes );
     })
     .then(function(){
-      $scope.numShoeMatchById  = MatesService.numShoeMatchById;
+      $scope.matchesPerShoe  = MatesService.matchesPerShoe;
     })
     .then(function(){
       $scope.addToLikes = MatesService.addToLikes;      
-    });
+    })
+    .then(function(){
+      $scope.matesPerShoe = [];
+    })
   }
 
+  $scope.showMatchPerShoe = function(matesAll, shoeId){
+    $scope.matesPerShoe = MatesService.matchesPerShoe(matesAll, shoeId);
+  };
 
   $scope.cancel = function() {
       $scope.guest = {};
@@ -185,36 +191,26 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
   };
 
   $scope.submitLoginForm = function() {
-      var loginUser = {
-        email: $scope.login.email,
-        password: $scope.login.password
-      };
-      UserByEmail = $resource('/api/users/email/:email', {
-        email: '@email'
-      }, {
-        byEmail: {
-          method: 'GET'
-        }
-      });
-
-      UserByEmail.byEmail({email: loginUser.email})
-      .$promise
-      .then(function(user){
-        $scope.currentUser = user;
-        console.log("just logged in as:", $scope.currentUser);
-      })
-      .then(function(){
-        startLoginInit();
-      });
-      // UserByEmail.byEmail({
-      //   email: loginUser.email
-      // }, function(data) {
-      //   //console.log("the logged in user is :",data);
-      //  // $rootScope.currentUser = data;
-      //   $scope.currentUser = data;
-      //     console.log("just logged in:" , $scope.currentUser);
-      //     startLoginInit();
-      // });
-      $scope.cancel();
+    var loginUser = {
+      email: $scope.login.email,
+      password: $scope.login.password
     };
+    UserByEmail = $resource('/api/users/email/:email', {
+      email: '@email'
+    }, {
+      byEmail: {
+        method: 'GET'
+      }
+    });
+    UserByEmail.byEmail({email: loginUser.email})
+    .$promise
+    .then(function(user){
+      $scope.currentUser = user;
+      console.log("just logged in as:", $scope.currentUser);
+    })
+    .then(function(){
+      startLoginInit();
+    });
+    $scope.cancel();
+  };
 }]);
