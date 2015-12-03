@@ -1,18 +1,26 @@
-var app = angular.module('solemateApp', ['ngRoute', 'ngResource', 'ui.bootstrap']);
+var app = angular.module('solemateApp', ['ngResource', 'ui.bootstrap', 'ui.router', 'ngAnimate']);
 
 
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  $routeProvider
-    .when('/', {
+app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function($stateProvider, $urlRouterProvider, $locationProvider) {
+  
+  //any unmatched url redirect to home
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider
+    .state('home',{
+      url: '/',
       templateUrl: 'views/templates/home.html',
       controller: 'MainController'
     })
-    .when('/api/shoes', {
+    .state('shoes',{
+      url: '/api/shoes', 
       templateUrl: 'views/templates/home.html',
       controller: 'MainController'
     })
-    .otherwise({
-      redirectTo: '/'
+    .state('messages', {
+      url:'/api/users/:id/messages', 
+      templateUrl: 'views/templates/messages.html',
+      controller: 'MessageController'
     });
 
   $locationProvider.html5Mode({

@@ -9,14 +9,14 @@
   </div>
   <div class="" ng-repeat="mate in matesPerShoe">
     <div>
-      <h4><a ng-href="javascript:void(0)" ng-click="showMsg = !showMsg" class="">{{mate.username}}</a></h4>
+      <h4><a ng-href="javascript:void(0)" ng-click="showMsgPanel(); showMsg = !showMsg" class="">{{mate.email}}</a></h4>
       <div ng-show="showMsg">
-        <form ng-submit="">
+        <form ng-submit="postMsg()">
           <div class="form-group">
             <label>Message</label>
-            <textarea></textarea>
+            <textarea ng-model="mateMsg"></textarea>
             <input type="submit">
-            <input type="button" ng-click="" value="cancel">
+            <input type="button" ng-click="showMsg = !showMsg" value="cancel">
           </div>
         </form>
       </div>

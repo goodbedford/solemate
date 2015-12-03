@@ -121,11 +121,15 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
     })
     .then(function(){
       $scope.matesPerShoe = [];
-    })
+    });
   }
 
   $scope.showMatchPerShoe = function(matesAll, shoeId){
     $scope.matesPerShoe = MatesService.matchesPerShoe(matesAll, shoeId);
+  };
+
+  $scope.showMsgPanel = function(){
+    $scope.mateMsg = "We have similar tast in shoes. Lets get these shoes together.";
   };
 
   $scope.cancel = function() {
@@ -165,7 +169,7 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
       console.log( "this user has been created", result.data);
       $scope.currentUser = result.data;
     })
-    .throw(function failCallBack(error){
+    .catch(function failCallBack(error){
         console.log("the error for guest post",error );
     });
 

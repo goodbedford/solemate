@@ -1,9 +1,12 @@
 {
-  "directory": "vendor/bower_components",
+  "directory": "public/vendor/bower_components",
   "analytics": false,
   "timeout": 120000,
   "registry": {
     "search": [
+      "https://angular-ui.github.com/bootstrap",
+      "http://bower.herokuapp.com",
+      "https://bower.herokuapp.com/packages",
       "http://localhost:8000",
       "https://solemate.herokuapp.com"
     ]
