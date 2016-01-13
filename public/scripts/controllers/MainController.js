@@ -30,6 +30,23 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
     $scope.addToLikes = MatesService.addToLikes;      
   }
 
+  function deleteGuest( email, newUser) {
+    UserByEmail = $resource('/api/users/email/:email', {
+      email: '@email'
+    }, {
+      byEmail: {
+        method: 'GET'
+      }
+    });
+    UserByEmail.byEmail({email: email})
+    .$promise
+    .then(function(user){
+      UserService.delete(user);
+    })
+    .then(function(){
+      startInit(newUser);
+    });
+  }
 
   // function startInit(newUser){
   //   UserService.save(newUser, function successCallBack(user){
@@ -173,20 +190,22 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
         rightFoot: $scope.guest.rightFootSize,
         shoeType: $scope.guest.shoeType
     };
+    deleteGuest(guest.email, guest);
+    $scope.cancel();
 
-    $http({
-      method: 'post',
-      data: guest,
-      url: "api/users"
-    })
-    .then(function successCallBack(result){
-      console.log( "this user has been created", result);
-      console.log( "this user has been created", result.data);
-      $scope.currentUser = result.data;
-    })
-    .catch(function failCallBack(error){
-        console.log("the error for guest post",error );
-    });
+    // $http({
+    //   method: 'post',
+    //   data: guest,
+    //   url: "api/users"
+    // })
+    // .then(function successCallBack(result){
+    //   console.log( "this user has been created", result);
+    //   console.log( "this user has been created", result.data);
+    //   $scope.currentUser = result.data;
+    // })
+    // .catch(function failCallBack(error){
+    //     console.log("the error for guest post",error );
+    // });
 
   };
 

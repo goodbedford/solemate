@@ -109,10 +109,6 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
     });
 
 
-    // console.log($scope.guest.shoeType);
-    // $rootScope.currentUser = $scope.guest;
-    // console.log($scope.currentUser);
-
   };
 
   //signup scope
