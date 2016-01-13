@@ -17,6 +17,7 @@
     "express": "^4.13.3",
     "express-session": "^1.11.3",
     "mongoose": "^4.1.4",
+    "node-mongo-seeds": "^2.2.7",
     "request": "^2.61.0"
   }
 }

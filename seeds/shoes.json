@@ -1,4 +1,11 @@
-[{
+  var mongoose = require('mongoose');
+  mongoose.connect(
+  process.env.MONGOLAB_URI ||
+  process.env.MONGOHQ_URL ||
+  'mongodb://localhost/q_and_a'
+);
+
+newShoes = [{
   "name": "Delsie Stella",
   "brand": "Clarks",
   "price": 139.95,
@@ -41,3 +48,8 @@
   "color": "red",
   "shoeUrl": "http://s1.shoes.com/images/br574/womens-wanted-simone-coral-490199_120_45.jpg"
 }]
+
+
+  newShoes.save(function(err, savedShoe){
+    res.json(savedShoe);
+  });
