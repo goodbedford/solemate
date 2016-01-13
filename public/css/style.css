@@ -179,7 +179,11 @@ form{
   vertical-align: middle;
 }
 
-
+.title {
+  color: #FF0080;
+  font-size: 2em;
+  padding: .3em;
+}
 .thumb {
   height: 5em;
   width: 5em;
@@ -199,4 +203,7 @@ form{
 }
 .u-line{
   text-decoration: underline;
+}
+.well {
+  font-size: 1.5em;
 }

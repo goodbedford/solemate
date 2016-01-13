@@ -130,12 +130,12 @@ app.factory('UserService', ['$resource', function($resource) {
         });
       });
       console.log("num of shoe matches:", matesWithShoeMatch.length);
-      debugger;
       return matesWithShoeMatch;
     };
     
     factory.matchesPerShoe = function(matesWithShoeMatches, shoeId){
       var matesPerShoe = [];
+      var tempMate = {};
       var index;
       matesWithShoeMatches.forEach(function(mate){
         index = mate.likes.indexOf(shoeId);
@@ -144,7 +144,10 @@ app.factory('UserService', ['$resource', function($resource) {
 
         if( index >= 0) {
           console.log("the matePerShoe",matesPerShoe);
-          matesPerShoe.push(mate);
+          tempMate._id = mate._id;
+          tempMate.username = mate.username;
+          tempMate.shoeId = shoeId;
+          matesPerShoe.push(tempMate);
           console.log("the mates PerShoe", matesPerShoe);
         }
       });
@@ -183,7 +186,6 @@ app.factory('UserService', ['$resource', function($resource) {
        console.log("clicked");
        console.log("shoeId:", shoeId);
        console.log("current user", currentUser);
-       debugger;
       if (currentUser.likes.indexOf(shoeId) < 0) {
         currentUser.likes.push(shoeId);
         console.log("user likes after:", currentUser.likes);

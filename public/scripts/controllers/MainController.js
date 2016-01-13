@@ -1,4 +1,4 @@
-app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', '$modal', 'UserService', 'MatesService', 'ShoeService', function($scope, $rootScope, $resource, $http, $modal, UserService, MatesService, ShoeService) {
+app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', '$modal', 'UserService', 'MatesService', 'ShoeService', 'MessageService', function($scope, $rootScope, $resource, $http, $modal, UserService, MatesService, ShoeService, MessageService) {
   $scope.isCollapsed = true;
   $scope.showMiniSplash = function() {
     $scope.miniSplash = true;
@@ -126,10 +126,25 @@ app.controller('MainController', ['$scope', '$rootScope', '$resource', '$http', 
 
   $scope.showMatchPerShoe = function(matesAll, shoeId){
     $scope.matesPerShoe = MatesService.matchesPerShoe(matesAll, shoeId);
+    debugger;
   };
 
   $scope.showMsgPanel = function(){
-    $scope.mateMsg = "We have similar tast in shoes. Lets get these shoes together.";
+    $scope.msgBody = "We have similar taste in shoes. Lets get these shoes together.";
+  };
+
+  $scope.postMsg = function(user) {
+    console.log("inside Postmg", user);
+    var newMsg = {
+      body: $scope.msgBody,
+      fromUser: $scope.currentUser._id,
+      toUser: user._id,
+      shoe: user.shoeId
+    };
+    console.log("newMsg:", newMsg);
+    MessageService.save({userId: user._id}, newMsg, function(msg){
+      console.log("success msg:", msg);
+    });
   };
 
   $scope.cancel = function() {

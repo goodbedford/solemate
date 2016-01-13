@@ -18,7 +18,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', functio
       controller: 'MainController'
     })
     .state('messages', {
-      url:'/api/users/:id/messages', 
+      url:'/api/users/:userId/messages', 
       templateUrl: 'views/templates/messages.html',
       controller: 'MessageController'
     });

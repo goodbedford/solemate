@@ -7,16 +7,19 @@
             <span class="badge badge-bg01">{{matesPerShoe.length}}</span>
             Sole Mates</h3>
   </div>
-  <div class="" ng-repeat="mate in matesPerShoe">
+  <div class="" ng-repeat="mate in matesPerShoe track by $index">
     <div>
-      <h4><a ng-href="javascript:void(0)" ng-click="showMsgPanel(); showMsg = !showMsg" class="">{{mate.email}}</a></h4>
+      <h4><a ng-href="javascript:void(0)" ng-click="showMsgPanel(); showMsg = !showMsg; $event.stopPropagation();" class="">{{mate.username}}</a></h4>
       <div ng-show="showMsg">
-        <form ng-submit="postMsg()">
+        <form ng-submit="postMsg(mate); $event.stopPropaganation();">
           <div class="form-group">
             <label>Message</label>
-            <textarea ng-model="mateMsg"></textarea>
+            <textarea  name="body" ng-model="msgBody"></textarea>
+            <input type="text" name="fromUser" ng-model="msgFromUser" val="{{currentUser._id}}" placeholder="{{currentUser._id}}">
+            <input type="text" name="toUser" ng-model="msgToUser" val="{{mate._id}}" placeholder="{{mate._id}}">
+            <input type="text" name="shoeId" ng-model="msgShoeId" val="{{mate.shoeId}}" placeholder="{{mate.shoeId}}">
             <input type="submit">
-            <input type="button" ng-click="showMsg = !showMsg" value="cancel">
+            <input type="button" ng-click="showMsg = !showMsg; $event.stopPropagation();" value="cancel">
           </div>
         </form>
       </div>

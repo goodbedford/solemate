@@ -189,10 +189,24 @@ app.delete('/api/users/:id', function(req, res){
 });
 
 //Get Messages
-app.get('/api/messages', function(req, res){
-  Message.find({}, function(err, messages){
-    res.json(messages);
-  });
+app.get('/api/users/:userId/messages', function(req, res){
+  var id = req.params.userId;
+  console.log("the get message:", id);
+  Message.find({$or: [{toUser: id}, {fromUser: id}]})
+    .populate('fromUser toUser shoe')
+    .exec( function(err, messages){
+      console.log(" 1found messages", messages);
+      res.json(messages);
+    });   
+  // User.findOne({_id: id})
+  //   .populate('messages')
+  //   .exec(function(err, user){
+  //     res.json(user);
+  //   });
+
+  // Message.find({}, function(err, messages){
+  //   res.json(messages);
+  // });
 });
 //GET Messages by id
 app.get('/api/messages/:id', function(req, res){
@@ -202,17 +216,21 @@ app.get('/api/messages/:id', function(req, res){
   });
 });
 // Post Message
-app.post('/api/messages/', function(req, res){
-  var newMessages = new Message({
-    name: req.body.name,
-    brand: req.body.brand,
-    price: req.body.price,
-    shoeUrl: req.body.shoeUrl,
-    type: req.body.type
+app.post('/api/users/:userId/messages/', function(req, res){
+  var newMessage = new Message({
+    body: req.body.body,
+    fromUser: req.body.fromUser,
+    toUser: req.body.toUser,
+    shoe: req.body.shoe,
   });
-
-  newShoe.save(function(err, savedShoe){
-    res.json(savedShoe);
+  console.log("the new msg:", newMessage);
+  User.findOne({_id: newMessage.toUser}, function(err, foundUser){
+    foundUser.messages.push(newMessage);
+    foundUser.save();
+    newMessage.save(function(err, savedMessage){
+      console.log("just saved message:", savedMessage);
+      res.json(savedMessage);
+    });
   });
 });
 

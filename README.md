@@ -3,4 +3,6 @@ size smaller than the other. This is the solution. Users are able to browse this
 catelog and find matching users with the opposite foot size. From there they can message each other and began
 to buy shoes together. 
 Stack:
-Angular, Express, Node
+Angular, Express, Node, Mongo, Mongoose
+
+This project is still in development.
